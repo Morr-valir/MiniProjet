@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste Modèle{% endblock %}
+
+{% block body %}
+{% for modele in listeModele %}
+    {{modele.nom}}
+{% endfor %}
+{% endblock %}
