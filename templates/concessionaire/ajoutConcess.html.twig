@@ -4,6 +4,14 @@
 {% endblock %}
 
 {% block body %}
+	<header>
+		<nav class="navbar navbar-light bg-primary">
+			<div class="container-fluid">
+				<span class="navbar-brand mb-0 h1 text-light">Plateforme de création de concessionaire - Admin</span>
+			</div>
+		</nav>
+	</header>
+
 	<main class="container p-5">
 		<div class="row">
 			<div class="col-md col-sm">
@@ -16,5 +24,20 @@
 				</div>
 			</div>
 		</main>
+		<style>
+		body {
+			background: url('https://www.caution-garantie.fr/img/produits/caution-concessionnaire-automobile.jpg') no-repeat;
+			background-size: cover;
+		}
+		.content-flex {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.card {
+			text-align: center;
+		}
+	</style>
 	{% endblock %}
 
