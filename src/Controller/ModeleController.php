@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/client', name: 'client')]
+#[Route('/Modele', name: 'Modele')]
 class ModeleController extends AbstractController
 {
     #[Route('/showAll', name: 'showAll')]
