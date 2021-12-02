@@ -2,21 +2,23 @@
 
 namespace App\Controller;
 
+use App\Entity\Modele;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 
-#[Route('/Modele', name: 'Modele')]
 class ModeleController extends AbstractController
 {
-    #[Route('/showAll', name: 'showAll')]
+    /**
+     * @Route("/modele", name="modele")
+     */
     public function showAll(ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
         $repo = $em->getRepository(Modele::class);
-        
+
         $listeModele = $repo->findAll();
 
         return $this->render('modele/showAll.html.twig', [
@@ -28,7 +30,7 @@ class ModeleController extends AbstractController
     // {
     //     $em = $doctrine->getManager();
     //     $repo = $em->getRepository(Modele::class);
-        
+
     //     $listeModele = $repo->findAll();
 
     //     return $this->render('modele/showAll.html.twig', [
