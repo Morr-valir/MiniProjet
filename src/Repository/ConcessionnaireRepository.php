@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Concessionaire;
+use App\Entity\Concessionnaire;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method Concessionaire|null find($id, $lockMode = null, $lockVersion = null)
- * @method Concessionaire|null findOneBy(array $criteria, array $orderBy = null)
- * @method Concessionaire[]    findAll()
- * @method Concessionaire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Concessionnaire|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Concessionnaire|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Concessionnaire[]    findAll()
+ * @method Concessionnaire[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ConcessionaireRepository extends ServiceEntityRepository
+class ConcessionnaireRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Concessionaire::class);
+        parent::__construct($registry, Concessionnaire::class);
     }
 
     // /**
-    //  * @return Concessionaire[] Returns an array of Concessionaire objects
+    //  * @return Concessionnaire[] Returns an array of Concessionnaire objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class ConcessionaireRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Concessionaire
+    public function findOneBySomeField($value): ?Concessionnaire
     {
         return $this->createQueryBuilder('c')
             ->andWhere('c.exampleField = :val')

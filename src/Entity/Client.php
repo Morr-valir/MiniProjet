@@ -28,7 +28,7 @@ class Client
     private $prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\OneToOne(targetEntity=Modele::class, mappedBy="clients", cascade={"persist", "remove"})
      */
     private $modele;
 
@@ -61,13 +61,23 @@ class Client
         return $this;
     }
 
-    public function getModele(): ?string
+    public function getModele(): ?Modele
     {
         return $this->modele;
     }
 
-    public function setModele(string $modele): self
+    public function setModele(?Modele $modele): self
     {
+        // unset the owning side of the relation if necessary
+        if ($modele === null && $this->modele !== null) {
+            $this->modele->setClients(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($modele !== null && $modele->getClients() !== $this) {
+            $modele->setClients($this);
+        }
+
         $this->modele = $modele;
 
         return $this;

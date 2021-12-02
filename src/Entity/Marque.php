@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\modeleRepository;
+use App\Repository\MarqueRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=modeleRepository::class)
+ * @ORM\Entity(repositoryClass=MarqueRepository::class)
  */
 class Marque
 {
@@ -18,19 +20,25 @@ class Marque
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\ManyToMany(targetEntity=Concessionnaire::class, mappedBy="marques")
      */
-    private $concessionnaire;
+    private $concessionnaires;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\OneToMany(targetEntity=Modele::class, mappedBy="marque")
      */
-    private $modele;
+    private $modeles;
+
+    public function __construct()
+    {
+        $this->concessionnaires = new ArrayCollection();
+        $this->modeles = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -49,26 +57,59 @@ class Marque
         return $this;
     }
 
-    public function getConcessionnaire(): ?string
+    /**
+     * @return Collection|Concessionnaire[]
+     */
+    public function getConcessionnaires(): Collection
     {
-        return $this->concessionnaire;
+        return $this->concessionnaires;
     }
 
-    public function setConcessionnaire(string $concessionnaire): self
+    public function addConcessionnaire(Concessionnaire $concessionnaire): self
     {
-        $this->concessionnaire = $concessionnaire;
+        if (!$this->concessionnaires->contains($concessionnaire)) {
+            $this->concessionnaires[] = $concessionnaire;
+            $concessionnaire->addMarque($this);
+        }
 
         return $this;
     }
 
-    public function getmodele(): ?string
+    public function removeConcessionnaire(Concessionnaire $concessionnaire): self
     {
-        return $this->modele;
+        if ($this->concessionnaires->removeElement($concessionnaire)) {
+            $concessionnaire->removeMarque($this);
+        }
+
+        return $this;
     }
 
-    public function setmodele(string $modele): self
+    /**
+     * @return Collection|Modele[]
+     */
+    public function getModeles(): Collection
     {
-        $this->modele = $modele;
+        return $this->modeles;
+    }
+
+    public function addModele(Modele $modele): self
+    {
+        if (!$this->modeles->contains($modele)) {
+            $this->modeles[] = $modele;
+            $modele->setMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeModele(Modele $modele): self
+    {
+        if ($this->modeles->removeElement($modele)) {
+            // set the owning side to null (unless already changed)
+            if ($modele->getMarque() === $this) {
+                $modele->setMarque(null);
+            }
+        }
 
         return $this;
     }

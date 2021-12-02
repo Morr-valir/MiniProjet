@@ -23,9 +23,14 @@ class Modele
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="modeles")
      */
-    private $Marque;
+    private $marque;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Client::class, inversedBy="modele", cascade={"persist", "remove"})
+     */
+    private $clients;
 
     public function getId(): ?int
     {
@@ -44,14 +49,26 @@ class Modele
         return $this;
     }
 
-    public function getMarque(): ?string
+    public function getMarque(): ?Marque
     {
-        return $this->Marque;
+        return $this->marque;
     }
 
-    public function setMarque(string $Marque): self
+    public function setMarque(?Marque $marque): self
     {
-        $this->Marque = $Marque;
+        $this->marque = $marque;
+
+        return $this;
+    }
+
+    public function getClients(): ?Client
+    {
+        return $this->clients;
+    }
+
+    public function setClients(?Client $clients): self
+    {
+        $this->clients = $clients;
 
         return $this;
     }
