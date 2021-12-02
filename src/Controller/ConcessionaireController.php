@@ -46,7 +46,6 @@ class ConcessionaireController extends AbstractController
         $em = $this->doctrine->getManager();
 
         $concession1 = new Concessionnaire();
-        $concession1->setNom("Concession 1");
 
         $form = $this->createForm(ConcessionaireType::class, $concession1);
 
