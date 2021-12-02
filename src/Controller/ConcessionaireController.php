@@ -54,6 +54,7 @@ class ConcessionaireController extends AbstractController
             $concession1 = $form->getData();
             $em->persist($concession1);
             $em->flush();
+            return $this->redirectToRoute('showAll');
         }
 
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
