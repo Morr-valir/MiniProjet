@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste client{% endblock %}
+
+{% block body %}
+{% for client in listeClient %}
+    {{client.prenom}}<br>
+{% endfor %}
+{% endblock %}
