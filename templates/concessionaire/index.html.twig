@@ -1,20 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConcessionaireController!{% endblock %}
+{% block title %}Plateforme vente 974
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Dream/OneDrive/Documents/symfony/MiniProjet/src/Controller/ConcessionaireController.php'|file_link(0) }}">src/Controller/ConcessionaireController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Dream/OneDrive/Documents/symfony/MiniProjet/templates/concessionaire/index.html.twig'|file_link(0) }}">templates/concessionaire/index.html.twig</a></code></li>
-    </ul>
-</div>
+	<header>
+		<nav class="navbar navbar-light bg-primary">
+			<div class="container-fluid">
+				<span class="navbar-brand mb-0 h1 text-light">Plateforme de vente</span>
+			</div>
+		</nav>
+	</header>
+	<main class="content-flex">
+		<section class="container p-5">
+			<div class="row">
+				{% for concessionaire in listeConcession %}
+					<div class="col-md col-sm">
+						<div class="card" style="width: 18rem;">
+							<div class="card-body">
+								<h5 class="card-title">{{concessionaire.nom}}</h5>
+								<a href="#" class="btn btn-primary">Voir les véhicules</a>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+	</main>
+	<style>
+		body {
+			background: url('https://images.unsplash.com/photo-1635072181179-ef31855047af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1631&q=80') no-repeat;
+			background-size: cover;
+		}
+		.content-flex {
+			height: 100vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.card {
+			text-align: center;
+		}
+	</style>
 {% endblock %}
