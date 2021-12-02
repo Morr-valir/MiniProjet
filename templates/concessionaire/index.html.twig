@@ -19,7 +19,10 @@
 						<div class="card" style="width: 18rem;">
 							<div class="card-body">
 								<h5 class="card-title">{{concessionaire.nom}}</h5>
-								<a href="#" class="btn btn-primary">Voir les véhicules</a>
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<a href="#" class="btn btn-primary">Voir les véhicules</a>
+									<a href="{{ path('add',{'id':concessionaire.id}) }}" class="btn btn-danger">Modifier la concession</a>
+								</div>
 							</div>
 						</div>
 					</div>
