@@ -73,16 +73,26 @@ class ConcessionaireController extends AbstractController
 
         //Récupération de la concession ciblé
         $concession = $em->getRepository(Concessionnaire::class)->find($id);
+        dump($concession);
 
-        if (!$concession){
+        if (!$concession) {
             throw $this->createNotFoundException('Pas de concession dans la bdd');
         }
 
 
-        
+        $form = $this->createForm(ConcessionaireType::class, $concession);
 
-        return $this->render('concessionaire/ajoutConcess.html.twig', [
-            'form' => '',
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $concession = $form->getData();
+            
+            $em->flush();
+            // return $this->redirectToRoute('showAll');
+            dump($concession);
+        }
+
+        return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
+            'form' => $form,
         ]);
     }
 }
