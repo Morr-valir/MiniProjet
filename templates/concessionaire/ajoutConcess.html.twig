@@ -1,17 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ConcessionaireController!
+{% block title %}Création d'une concession
 {% endblock %}
 
 {% block body %}
 	<header>
-		<nav class="navbar navbar-light bg-primary">
+		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
 			<div class="container-fluid">
-				<span class="navbar-brand mb-0 h1 text-light">Plateforme de création de concessionaire - Admin</span>
+				<a class="navbar-brand text-light fw-bolder" href="#">{{title}}</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="btn text-light" aria-current="page" href="{{path('concession/showAll')}}">Retour à l'accueil</a>
+						</li>
+					</ul>
+				</div>
+				<span class="text-light">Nom utilisateur</span>
 			</div>
 		</nav>
 	</header>
-
 	<main class="container p-5 index">
 		<div class="row">
 			<div class="col-md col-sm">
