@@ -16,6 +16,9 @@
 						<li class="nav-item">
 							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('marque/add')}}">Ajouter une marque</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('concession/showAll')}}">Retour à l'accueil</a>
+						</li>
 					</ul>
 				</div>
 				<span class="text-light">Nom utilisateur :
@@ -62,8 +65,8 @@
 				<div class="col">
 					<h3 class="h3">Option</h3>
 					<div class="d-grid gap-2 d-md-block">
-						<button id="export" class="btn btn-warning" type="button" onclick="export()">Exporter les données</button>
-						<button class="btn btn-primary" type="button">Voir toutes les modèle</button>
+						<a id="export" class="btn btn-warning" type="button" onclick="export()">Exporter les données</a>
+						<a class="btn btn-primary" href="{{path('modele/showAll')}}">Voir toutes les modèle</a>
 					</div>
 				</div>
 			</div>
