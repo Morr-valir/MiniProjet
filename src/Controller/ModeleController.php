@@ -80,12 +80,14 @@ class ModeleController extends AbstractController
 
         $listeModele = $repo->findAll();
 
-        return $this->render('modele/showAll.html.twig', [
+        return $this->render('modele/modele.html.twig', [
             'listeModele' => $listeModele,
         ]);
     }
+
+
     /**
-     * @Route("/showSelected/{id}", name="showAll")
+     * @Route("/showSelected/{id}", name="showSelected")
      */
     public function showSelected(ManagerRegistry $doctrine, int $id): Response
     {
@@ -96,7 +98,7 @@ class ModeleController extends AbstractController
         $listeModele = $marqueSelected->getModeles();
         dump($listeModele);
 
-        return $this->render('modele/showAll.html.twig', [
+        return $this->render('modele/modele.html.twig', [
             'listeModele' => $listeModele,
         ]);
     }
