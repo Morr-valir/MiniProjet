@@ -1,25 +1,86 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MarqueController!
+{% block title %}Liste des marques
 {% endblock %}
 
 {% block body %}
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light fw-bolder" href="#">{{title}}</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('marque/add')}}">Ajouter une marque</a>
+						</li>
+					</ul>
+				</div>
+				<span class="text-light">Nom utilisateur :
+				</span>
+			</div>
+		</nav>
+	</header>
 	<main>
 		<div class="container p-5">
-			<div class="row">
+			<div class="row mb-5">
 				<div class="col">
-					<h1 class="h2">Liste des marques</h1>
+					<h2 class="h2">Liste des marques</h2>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col"></div>
+				<div class="col">
+					<table id="table_id" class="display">
+						<thead>
+							<tr>
+								<th>Concessionnaire</th>
+								<th>Nom de la marque</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for marque in listeMarque %}
+								<tr>
+									<td>
+										{% for concession in marque.concessionnaires %}
+											{{concession.nom}}
+											|
+										{% endfor %}
+									</td>
+									<td scope="col">
+										<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
+										</tr>
+									{% endfor %}
+								</tr>
+							</tbody>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row mt-5">
+				<div class="col">
+					<h3 class="h3">Option</h3>
+					<div class="d-grid gap-2 d-md-block">
+						<button id="export" class="btn btn-warning" type="button" onclick="export()">Exporter les données</button>
+						<button class="btn btn-primary" type="button">Voir toutes les modèle</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</main>
 {% endblock %}
 {% block javascripts %}
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 	<script>
 		let table = new DataTable('#table_id', { // options
 });
+	</script>
+	<script>
+		function export() {
+let exportbtn = document.getElementById('table_id');
+print(exportbtn);
+};
 	</script>
 {% endblock %}
