@@ -2,19 +2,36 @@
 
 namespace App\Form;
 
+use App\Entity\Marque;
 use App\Entity\Concessionnaire;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConcessionaireType extends AbstractType
 {
+    //Creation du constructor pour recup data Hero
+    private $doctrine;
+    public function __construct(ManagerRegistry $doc)
+    {
+        $this->doctrine = $doc;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+        $repo = $this->doctrine->getManager()->getRepository(Marque::class);
+        $listeConcession = $repo->findAll();
+        dump($listeConcession);
         $builder
             ->add('nom')
-            ->add('marques');
+            ->add("marques", EntityType::class, [
+                'label' => "Choix de la marque",
+                'class' => Marque::class,
+                'multiple' => true,
+                'choices' => $listeConcession
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

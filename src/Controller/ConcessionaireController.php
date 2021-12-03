@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
+/**
+ * @Route("/concession", name="concession")
+ */
 class ConcessionaireController extends AbstractController
 {
     private $doctrine;
@@ -60,7 +63,8 @@ class ConcessionaireController extends AbstractController
             ]
         ])->add('Annuler', ButtonType::class, [
             'attr' => [
-                'class' => 'btn-danger'            ]
+                'class' => 'btn-danger'
+            ]
         ]);
 
 
@@ -99,7 +103,7 @@ class ConcessionaireController extends AbstractController
         }
 
         //Création du formulaire
-        $form = $this->createForm(ConcessionaireType::class, $concession)->add('Mettre à jour', SubmitType::class, [
+        $form = $this->createForm(ConcessionaireType::class, $concession)->add('Valider', SubmitType::class, [
             'attr' => [
                 'class' => 'btn-primary'
             ]
