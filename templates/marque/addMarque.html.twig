@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'une marque
+{% endblock %}
+
+{% block body %}
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light fw-bolder" href="#">{{title}}</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="btn text-light" aria-current="page" href="{{path('marque/showAll')}}">Retour à l'accueil</a>
+						</li>
+					</ul>
+				</div>
+				<span class="text-light">Nom utilisateur</span>
+			</div>
+		</nav>
+	</header>
+	<main class="container p-5 index">
+		<div class="row">
+			<div class="col-md col-sm">
+				<h1 class="h1">Création d'une marque</h1>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md col-sm">
+				{{form(form)}}
+				</div>
+			</div>
+		</main>
+		<style>
+			body {
+				background: url('https://www.caution-garantie.fr/img/produits/caution-concessionnaire-automobile.jpg') no-repeat;
+				background-size: cover;
+				height: 100vh;
+			}
+			body::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				background: black;
+				width: 100%;
+				opacity: 0.7;
+			}
+			.index {
+				position: relative;
+				z-index: 2;
+			}
+			.h1 {
+				color: #e7e7e7;
+				text-shadow: 2px 2px black;
+			}
+			#concessionaire {
+				background: #f5f5f58c;
+				border-radius: 10px;
+				padding: 20px;
+			}
+		</style>
+	{% endblock %}
+	{% block javascripts %}
+		<script>
+			document.addEventListener("click", function () {
+document.getElementById('concessionaire_Annuler').window.location = "/showAll";
+});
+		</script>
+	{% endblock %}

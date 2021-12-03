@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ConcessionaireType extends AbstractType
 {
-    //Creation du constructor pour recup data Hero
+    //Creation du constructor pour recup data Marque
     private $doctrine;
     public function __construct(ManagerRegistry $doc)
     {
