@@ -24,12 +24,16 @@ class ConcessionaireController extends AbstractController
      */
     public function showAll(): Response
     {
-
+        //Récupération du manager
         $em = $this->doctrine->getManager();
+
+        //Récupération du repository
         $repo = $em->getRepository(Concessionnaire::class);
 
+        //Récupération de tout les objets du repository Concessionnaire
         $listeConcession = $repo->findAll();
 
+        //Ensuite pour finir on envoie cette liste au front, index.html.twig
         return $this->render('concessionaire/index.html.twig', [
             'listeConcession' => $listeConcession,
         ]);
@@ -47,16 +51,21 @@ class ConcessionaireController extends AbstractController
 
         $concession1 = new Concessionnaire();
 
+        //Création du formulaire
         $form = $this->createForm(ConcessionaireType::class, $concession1);
 
+
+        //Validation du formulaire
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $concession1 = $form->getData();
+            
             $em->persist($concession1);
             $em->flush();
             return $this->redirectToRoute('showAll');
         }
 
+        //Ensuite pour finir on envoie ce formulaire au front, ajoutConcess.html.twig
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
             'form' => $form,
         ]);
@@ -68,31 +77,63 @@ class ConcessionaireController extends AbstractController
     public function update(Request $req, int $id): Response
     {
 
-        //Récupération du manager et repository
+        //Récupération du manager
         $em = $this->doctrine->getManager();
 
         //Récupération de la concession ciblé
         $concession = $em->getRepository(Concessionnaire::class)->find($id);
-        dump($concession);
 
+
+        //Si la concession ciblé n'existe pas
         if (!$concession) {
             throw $this->createNotFoundException('Pas de concession dans la bdd');
         }
 
-
+        //Création du formulaire
         $form = $this->createForm(ConcessionaireType::class, $concession);
 
+        //Validation du formulaire
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $concession = $form->getData();
 
             $em->flush();
             return $this->redirectToRoute('showAll');
-            dump($concession); 
         }
 
+        //Ensuite pour finir on envoie ce formualire au front, ajoutConcess.html.twig
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
             'form' => $form,
         ]);
+    }
+
+
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(int $id): Response
+    {
+
+        //Récurepation du managaer
+        $em = $this->doctrine->getManager();
+
+        //Récupération du repository
+        $repo = $em->getRepository(Concessionnaire::class);
+
+        //Récupération de la concession ciblé
+        $concession = $repo->find($id);
+
+        //Si la concession ciblé n'existe pas 
+        if (!$concession) {
+            throw $this->createNotFoundException('Concession inexistante');
+        }
+
+        //Suppression de l'objet ciblé ($concession) en BDD
+        $em->remove($concession);
+        $em->flush();
+
+        //Ensuite pour finir on re rend notre page d'accueil (index.html.twig)
+        return $this->render('concessionaire/index.html.twig');
     }
 }
