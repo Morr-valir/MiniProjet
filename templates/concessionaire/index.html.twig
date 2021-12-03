@@ -17,6 +17,9 @@
 				{% for concessionaire in listeConcession %}
 					<div class="col-md col-sm">
 						<div class="card" style="width: 18rem;">
+							<a href="#" class="link-dark">
+								<i class="fas fa-times close"></i>
+							</a>
 							<div class="card-body">
 								<h5 class="card-title">{{concessionaire.nom}}</h5>
 								<div class="btn-group" role="group" aria-label="Basic example">
@@ -43,6 +46,14 @@
 		}
 		.card {
 			text-align: center;
+			position: relative;
+		}
+		.close {
+			position: absolute;
+			font-size: 1.75em;
+			text-align: right;
+			padding: 10px 10px 0 0;
+			right: 0;
 		}
 	</style>
 {% endblock %}
