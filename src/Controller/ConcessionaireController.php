@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 /**
- * @Route("/concession", name="concession")
+ * @Route("/concession", name="concession/")
  */
 class ConcessionaireController extends AbstractController
 {
@@ -75,7 +75,7 @@ class ConcessionaireController extends AbstractController
 
             $em->persist($concession1);
             $em->flush();
-            return $this->redirectToRoute('showAll');
+            return $this->redirectToRoute('concession/showAll');
         }
 
         //Ensuite pour finir on envoie ce formulaire au front, ajoutConcess.html.twig
@@ -115,7 +115,7 @@ class ConcessionaireController extends AbstractController
             $concession = $form->getData();
 
             $em->flush();
-            return $this->redirectToRoute('showAll');
+            return $this->redirectToRoute('concession/showAll');
         }
 
         //Ensuite pour finir on envoie ce formualire au front, ajoutConcess.html.twig
@@ -151,6 +151,6 @@ class ConcessionaireController extends AbstractController
         $em->flush();
 
         //Ensuite pour finir on re rend notre page d'accueil (index.html.twig)
-        return $this->redirectToRoute('showAll');
+        return $this->redirectToRoute('concession/showAll');
     }
 }
