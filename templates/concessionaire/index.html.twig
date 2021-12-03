@@ -15,7 +15,7 @@
 		<section class="container p-5">
 			<div class="row">
 				{% for concessionaire in listeConcession %}
-					<div class="col-md col-sm">
+					<div class="col-md col-sm mt-5">
 						<div class="card" style="width: 18rem;">
 							<a href="{{ path('concession/delete',{'id':concessionaire.id}) }}" class="link-dark">
 								<i class="fas fa-times close"></i>
