@@ -23,7 +23,6 @@ class ConcessionaireType extends AbstractType
 
         $repo = $this->doctrine->getManager()->getRepository(Marque::class);
         $listeConcession = $repo->findAll();
-        dump($listeConcession);
         $builder
             ->add('nom')
             ->add("marques", EntityType::class, [

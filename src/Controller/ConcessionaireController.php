@@ -81,6 +81,7 @@ class ConcessionaireController extends AbstractController
         //Ensuite pour finir on envoie ce formulaire au front, ajoutConcess.html.twig
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
             'form' => $form,
+            'title' => 'Plateforme de vente automobile - Ajout de concession'
         ]);
     }
 
@@ -89,7 +90,6 @@ class ConcessionaireController extends AbstractController
      */
     public function update(Request $req, int $id): Response
     {
-
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -121,6 +121,7 @@ class ConcessionaireController extends AbstractController
         //Ensuite pour finir on envoie ce formualire au front, ajoutConcess.html.twig
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
             'form' => $form,
+            'title' => 'Plateforme de vente automobile - Modification de concession'
         ]);
     }
 
