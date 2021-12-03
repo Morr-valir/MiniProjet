@@ -14,8 +14,7 @@ class ConcessionaireType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('marques')
-            ->add('Soumettre', SubmitType::class);
+            ->add('marques');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

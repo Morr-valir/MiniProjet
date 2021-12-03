@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Concessionnaire;
 use App\Form\ConcessionaireType;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 class ConcessionaireController extends AbstractController
 {
@@ -52,14 +54,21 @@ class ConcessionaireController extends AbstractController
         $concession1 = new Concessionnaire();
 
         //Création du formulaire
-        $form = $this->createForm(ConcessionaireType::class, $concession1);
+        $form = $this->createForm(ConcessionaireType::class, $concession1)->add('Soumettre', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn-success'
+            ]
+        ])->add('Annuler', ButtonType::class, [
+            'attr' => [
+                'class' => 'btn-danger'            ]
+        ]);
 
 
         //Validation du formulaire
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $concession1 = $form->getData();
-            
+
             $em->persist($concession1);
             $em->flush();
             return $this->redirectToRoute('showAll');
@@ -90,7 +99,11 @@ class ConcessionaireController extends AbstractController
         }
 
         //Création du formulaire
-        $form = $this->createForm(ConcessionaireType::class, $concession);
+        $form = $this->createForm(ConcessionaireType::class, $concession)->add('Mettre à jour', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn-primary'
+            ]
+        ]);
 
         //Validation du formulaire
         $form->handleRequest($req);
@@ -134,6 +147,6 @@ class ConcessionaireController extends AbstractController
         $em->flush();
 
         //Ensuite pour finir on re rend notre page d'accueil (index.html.twig)
-        return $this->render('concessionaire/index.html.twig');
+        return $this->redirectToRoute('showAll');
     }
 }
