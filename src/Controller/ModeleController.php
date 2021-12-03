@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Marque;
 use App\Entity\Modele;
 use App\Form\ModeleType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -78,6 +79,22 @@ class ModeleController extends AbstractController
         $repo = $em->getRepository(Modele::class);
 
         $listeModele = $repo->findAll();
+
+        return $this->render('modele/showAll.html.twig', [
+            'listeModele' => $listeModele,
+        ]);
+    }
+    /**
+     * @Route("/showSelected/{id}", name="showAll")
+     */
+    public function showSelected(ManagerRegistry $doctrine, int $id): Response
+    {
+        $em = $doctrine->getManager();
+        $repoMarque = $em->getRepository(Marque::class);
+
+        $marqueSelected = $repoMarque->find($id);
+        $listeModele = $marqueSelected->getModeles();
+        dump($listeModele);
 
         return $this->render('modele/showAll.html.twig', [
             'listeModele' => $listeModele,
