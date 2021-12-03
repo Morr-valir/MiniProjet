@@ -12,7 +12,7 @@
 		</nav>
 	</header>
 
-	<main class="container p-5">
+	<main class="container p-5 index">
 		<div class="row">
 			<div class="col-md col-sm">
 				<h1 class="h1">Création d'un concessionaire auto</h1>
@@ -29,6 +29,19 @@
 				background: url('https://www.caution-garantie.fr/img/produits/caution-concessionnaire-automobile.jpg') no-repeat;
 				background-size: cover;
 				height: 100vh;
+			}
+			body::before {
+				content: '';
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				background: black;
+				width: 100%;
+				opacity: 0.7;
+			}
+			.index {
+				position: relative;
+				z-index: 2;
 			}
 			.h1 {
 				color: #e7e7e7;
