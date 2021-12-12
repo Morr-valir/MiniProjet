@@ -29,7 +29,8 @@ class ConcessionaireType extends AbstractType
                 'label' => "Choix de la marque",
                 'class' => Marque::class,
                 'multiple' => true,
-                'choices' => $listeConcession
+                'choices' => $listeConcession,
+                'required' => false
             ]);
     }
 
