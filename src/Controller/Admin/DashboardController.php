@@ -36,9 +36,9 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section("Configurations");
         yield MenuItem::linkToCrud('Concessionaire', 'fas fa-industry', Concessionnaire::class);
         yield MenuItem::linkToCrud('Marque', 'fas fa-car', Marque::class);
-        yield MenuItem::linkToCrud('Marque', 'fas fa-clipboard', Modele::class);
+        yield MenuItem::linkToCrud('Type de modèle', 'fas fa-clipboard', Modele::class);
         yield MenuItem::section("Gestion des clients");
-        yield MenuItem::linkToCrud('Marque', 'fas fa-user', Client::class);
+        yield MenuItem::linkToCrud('Client', 'fas fa-user', Client::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }
