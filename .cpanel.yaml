@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/cpanelUser/public_html/
+    - export DEPLOYPATH=/home/gteo7267/public_html/
     - /bin/cp -R * $DEPLOYPATH
