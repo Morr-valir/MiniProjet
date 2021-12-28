@@ -1,6 +1,6 @@
 # Projet symfony pour le mini projet
 
-<span>Procedure d'installation Projet</span>
+<span style="color: green">Procedure d'installation Projet</span>
 
 <ul>
     <li> > Composer install</li>
