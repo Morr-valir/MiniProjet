@@ -1,16 +1,31 @@
-# Projet symfony pour le mini projet
+# Mini projet symfony
 
-<span style="color: green">Procedure d'installation Projet</span>
+## Environnement de développement
 
-<ul>
-    <li> > Composer install</li>
-    <li> > Configuration de la base de donnée dans le fichier .env.local</li>
-    <li> > php bin/console doctrine:database:create</li>
-    <li> > php bin/console make:migration</li>
-    <li> > php bin/console doctrine:migration:migrate</li>
-</ul>
+### Pré-requis
 
-<span>Access dashboard</span>
+- PHP 7.4
+- Composer
+- Symfony CLI
+  Procedure d'installation Projet<
 
-<p>Login : admin</p>
-<p>Pwd : admin</p>
+Vous pouvez vérifier les pré-requis (sauf Docker et Docker-compose) avec la commande suivante (de la CLI symfony) :
+
+```bash
+symfony check:requirements
+```
+
+### Lancer l'environnement de développement
+
+composer install
+symfony console doctrine:migration:migrate
+symfony serve:start
+
+# EasyAdmin
+
+### Acces au Bashboard
+
+La route du dashboard : /admin
+
+- Login : admin
+- Password : admin
