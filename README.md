@@ -1,5 +1,7 @@
 # Mini projet symfony
 
+Projet : création d'une pateforme de gestion automobile sous symfony 5
+
 ## Environnement de développement
 
 ### Pré-requis
