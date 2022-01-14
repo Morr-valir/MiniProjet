@@ -43,7 +43,8 @@ class ModeleType extends AbstractType
                 'label' => "Client intéréssé",
                 'class' => Client::class,
                 'multiple' => true,
-                'choices' => $listeClient
+                'choices' => $listeClient,
+                'required' => false
             ]);
         ;
     }

@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/gteo7267/public_html/
+    - export DEPLOYPATH=/home/gteo7267/repositories/projetcda
     - /bin/cp -R * $DEPLOYPATH

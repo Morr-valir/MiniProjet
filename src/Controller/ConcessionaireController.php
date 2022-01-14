@@ -13,7 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 
 /**
- * @Route("/concession", name="concession/")
+ * @Route("/", name="concession/")
  */
 class ConcessionaireController extends AbstractController
 {
@@ -25,7 +25,7 @@ class ConcessionaireController extends AbstractController
 
 
     /**
-     * @Route("/showAll", name="showAll")
+     * @Route("/", name="showAll")
      */
     public function showAll(): Response
     {
