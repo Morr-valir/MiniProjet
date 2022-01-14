@@ -1,5 +1,6 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/gteo7267/repositories/MiniProjet
-    - /bin/cp -R * $DEPLOYPATH
+    - export DEPLOYPATH=/home/gteo7267/public_html/
+    #- /bin/cp -R * $DEPLOYPATH
+    - /bin/cp -R images $DEPLOYPATH
