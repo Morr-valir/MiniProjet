@@ -1,6 +1,0 @@
----
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/gteo7267/public_html/
-    #- /bin/cp -R * $DEPLOYPATH
-    - /bin/cp -R images $DEPLOYPATH
