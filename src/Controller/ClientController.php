@@ -32,7 +32,7 @@ class ClientController extends AbstractController
     {
         $em = $doctrine->getManager();
 
-        $repo = $em->getRepository(Client::class) ;
+        $repo = $em->getRepository(Client::class);
 
         $listeAll = $repo->findAll();
         dump($listeAll);
@@ -59,7 +59,8 @@ class ClientController extends AbstractController
             ]
         ])->add('Annuler', ButtonType::class, [
             'attr' => [
-                'class' => 'btn-danger'
+                'class' => 'btn-danger',
+                'onclick' =>"location='/client/showAll"
             ]
         ]);
 
@@ -81,7 +82,7 @@ class ClientController extends AbstractController
         ]);
     }
 
-      /**
+    /**
      * @Route("/update/{id}", name="update")
      */
     public function update(Request $req, int $id): Response
@@ -119,5 +120,33 @@ class ClientController extends AbstractController
             'form' => $form,
             'title' => "Plateforme de vente automobile - Modification d''un client'"
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(int $id): Response
+    {
+
+        //Récurepation du managaer
+        $em = $this->doctrine->getManager();
+
+        //Récupération du repository
+        $repo = $em->getRepository(Client::class);
+
+        //Récupération de la concession ciblé
+        $client = $repo->find($id);
+
+        //Si la concession ciblé n'existe pas 
+        if (!$client) {
+            throw $this->createNotFoundException('Client inexistant');
+        }
+
+        //Suppression de l'objet ciblé ($client) en BDD
+        $em->remove($client);
+        $em->flush();
+
+        //Ensuite pour finir redirige vers l'affichage de tout nos modele
+        return $this->redirectToRoute('client/showAll');
     }
 }
