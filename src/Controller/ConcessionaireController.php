@@ -34,6 +34,7 @@ class ConcessionaireController extends AbstractController
     {
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
+        dump($this->getUser());
         //Récupération du manager
         $em = $this->doctrine->getManager();
 

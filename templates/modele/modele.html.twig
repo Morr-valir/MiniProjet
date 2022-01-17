@@ -13,9 +13,11 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						{% if is_granted('ROLE_ADMIN') %}
 						<li class="nav-item">
 							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('modele/add')}}">Ajouter un modele</a>
 						</li>
+						{% endif %}
 					</ul>
 				</div>
 				<span class="text-light">Nom utilisateur :
@@ -31,8 +33,10 @@
 						<th>Modeles</th>
 						<th>Marque</th>
 						<th>Clients</th>
-						<th>Options</th>
-						<th>Supprimer</th>
+						{% if is_granted('ROLE_ADMIN') %}
+							<th>Options</th>
+							<th>Supprimer</th>
+						{% endif %}
 					</thead>
 
 					<tbody>
@@ -48,23 +52,27 @@
 								<td>
 									{{modele.clients}}
 								</td>
-								<td>
-									<a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
-								</td>
-								<td>
-									<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
-								</td>
 
-							</tr>
+								{% if is_granted('ROLE_ADMIN') %}
+
+									<td>
+										<a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
+									</td>
+									<td>
+										<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
+									</td>
+								</tr>
+							{% endif %}
+
 
 						{% endfor %}
 
 					</tbody>
 
 				</table>
-
-				<a href="{{ path('client/showAll')}}" class="btn btn-danger">Voir tous les clients</a>
-
+				<div class="btn-group w-25" role="group" aria-label="Basic example">
+					<a href="{{ path('client/showAll')}}" class="btn btn-danger">Voir tous les clients</a>
+				</div>
 			</div>
 		</section>
 	</main>

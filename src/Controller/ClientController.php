@@ -31,11 +31,8 @@ class ClientController extends AbstractController
     public function showAll(ManagerRegistry $doctrine): Response
     {
         $em = $doctrine->getManager();
-
         $repo = $em->getRepository(Client::class);
-
         $listeAll = $repo->findAll();
-        dump($listeAll);
         return $this->render('client/showAllClient.html.twig', [
             'listeAll' => $listeAll,
             'title' => 'Platefome de vente automobile - Liste des clients'
@@ -69,7 +66,7 @@ class ClientController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $client1 = $form->getData();
-
+            
             $em->persist($client1);
             $em->flush();
             return $this->redirectToRoute('client/showAll');

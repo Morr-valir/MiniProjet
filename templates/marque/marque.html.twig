@@ -13,9 +13,11 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item">
-							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('marque/add')}}">Ajouter une marque</a>
-						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li class="nav-item">
+								<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('marque/add')}}">Ajouter une marque</a>
+							</li>
+						{% endif %}
 						<li class="nav-item">
 							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('concession/showAll')}}">Retour à l'accueil</a>
 						</li>
@@ -40,7 +42,9 @@
 							<tr>
 								<th>Concessionnaire</th>
 								<th>Nom de la marque</th>
-								<th>Option</th>
+								{% if is_granted('ROLE_ADMIN') %}
+									<th>Option</th>
+								{% endif %}
 							</tr>
 						</thead>
 						<tbody>
@@ -54,10 +58,13 @@
 									</td>
 									<td scope="col">
 										<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
-											<td scope="col">
-												<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
-												<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
-											</td>
+											{% if is_granted('ROLE_ADMIN') %}
+												<td scope="col">
+													<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
+													<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
+												</td>
+											{% endif %}
+
 										</tr>
 									{% endfor %}
 								</tr>

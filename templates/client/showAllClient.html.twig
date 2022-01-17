@@ -16,12 +16,16 @@
 						<li class="nav-item">
 							<a class="btn text-light" aria-current="page" href="{{path('concession/showAll')}}">Retour à l'accueil</a>
 						</li>
-						<li>
-							<a class="btn text-light" aria-current="page" href="{{path('client/add')}}">Ajout d'un client</a>
-						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a class="btn text-light" aria-current="page" href="{{path('client/add')}}">Ajout d'un client</a>
+							</li>
+						{% endif %}
+
 					</ul>
 				</div>
-				<span class="text-light">Nom utilisateur</span>
+				<span class="text-light">Nom utilisateur:</span>
+
 			</div>
 		</nav>
 	</header>
@@ -36,8 +40,11 @@
 							<th>Nom</th>
 							<th>Prénom</th>
 							<th>Modèle</th>
-							<th>Options</th>
-							<th>Supprimer</th>
+							{% if is_granted('ROLE_ADMIN') %}
+								<th>Options</th>
+								<th>Supprimer</th>
+							{% endif %}
+
 						</tr>
 					</thead>
 				</thead>
@@ -53,12 +60,16 @@
 							<td>
 								{{client.modele}}
 							</td>
-							<td scope="col">
-								<a href="{{ path('client/update',{'id':client.id}) }}" class="btn btn-danger">Modifier le client</a>
-							</td>
-							<td>
-								<a href="{{ path('client/delete',{'id':client.id}) }}" class="btn btn-danger">Supprimer le client</a>
-							</td>
+
+							{% if is_granted('ROLE_ADMIN') %}
+								<td scope="col">
+									<a href="{{ path('client/update',{'id':client.id}) }}" class="btn btn-danger">Modifier le client</a>
+								</td>
+								<td>
+									<a href="{{ path('client/delete',{'id':client.id}) }}" class="btn btn-danger">Supprimer le client</a>
+								</td>
+							{% endif %}
+
 						</tr>
 					{% endfor %}
 
