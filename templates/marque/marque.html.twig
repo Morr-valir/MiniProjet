@@ -61,7 +61,6 @@
 											{% if is_granted('ROLE_ADMIN') %}
 												<td scope="col">
 													<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
-													<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
 												</td>
 											{% endif %}
 
