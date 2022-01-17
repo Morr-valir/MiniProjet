@@ -5,11 +5,12 @@ namespace App\Controller;
 use App\Entity\Marque;
 use App\Form\MarqueType;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/marque", name="marque/")
@@ -47,6 +48,11 @@ class MarqueController extends AbstractController
         $marque = new Marque();
         $formulaire = $this->createForm(MarqueType::class, $marque)->add('Ajouter', SubmitType::class, [
             'attr' => ['class' => 'btn-success']
+        ])->add('Annuler', ButtonType::class, [
+            'attr' => [
+                'onclick' => "location='/marque/showAll'",
+                'class' => 'btn-danger'
+            ]
         ]);
         //Validation formulaire
         $formulaire->handleRequest($req);
@@ -61,7 +67,7 @@ class MarqueController extends AbstractController
                 $em->flush();
             }
 
-            
+
             $em->flush();
             return $this->redirectToRoute('marque/showAll');
         }
@@ -116,5 +122,33 @@ class MarqueController extends AbstractController
             'form' => $form,
             'title' => "Plateforme de vente automobile - Modification d''une marque'"
         ]);
+    }
+
+    /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function delete(int $id): Response
+    {
+
+        //Récurepation du managaer
+        $em = $this->doctrine->getManager();
+
+        //Récupération du repository
+        $repo = $em->getRepository(Marque::class);
+
+        //Récupération de la concession ciblé
+        $marque = $repo->find($id);
+
+        //Si la concession ciblé n'existe pas 
+        if (!$marque) {
+            throw $this->createNotFoundException('Marque inexistante');
+        }
+
+        //Suppression de l'objet ciblé ($concession) en BDD
+        $em->remove($marque);
+        $em->flush();
+
+        //Ensuite pour finir on re rend notre page d'accueil (index.html.twig)
+        return $this->redirectToRoute('marque/showAll');
     }
 }

@@ -63,6 +63,7 @@ class ConcessionaireController extends AbstractController
             ]
         ])->add('Annuler', ButtonType::class, [
             'attr' => [
+                'onclick' => "location='/'",
                 'class' => 'btn-danger'
             ]
         ]);
