@@ -45,8 +45,7 @@ class ModeleType extends AbstractType
                 'multiple' => false,
                 'choices' => $listeClient,
                 'required' => false
-            ]);
-        ;
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
