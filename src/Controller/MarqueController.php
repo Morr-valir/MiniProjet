@@ -62,4 +62,46 @@ class MarqueController extends AbstractController
             'title' => 'Platefome de vente automobile - Création de marque '
         ]);
     }
+
+
+     /**
+     * @Route("/update/{id}", name="update")
+     */
+    public function update(Request $req, int $id): Response
+    {
+        //Récupération du manager
+        $em = $this->doctrine->getManager();
+
+        //Récupération de la marque ciblé
+        $marque = $em->getRepository(Marque::class)->find($id);
+
+
+        //Si la marque ciblé n'existe pas
+        if (!$marque) {
+            throw $this->createNotFoundException('Pas de marque dans la bdd');
+        }
+
+        //Création du formulaire
+        $form = $this->createForm(MarqueType::class, $marque)->add('Valider', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn-primary'
+            ]
+        ]);
+
+        //Validation du formulaire
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $marque = $form->getData();
+
+            $em->flush();
+            return $this->redirectToRoute('marque/showAll');
+        }
+
+        //Ensuite pour finir on envoie ce formualire au front, addMarque.html.twig
+        return $this->renderForm('marque/addMarque.html.twig', [
+            'form' => $form,
+            'title' => "Plateforme de vente automobile - Modification d''une marque'"
+        ]);
+    }
+
 }
