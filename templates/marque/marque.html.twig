@@ -57,31 +57,10 @@
 					<tbody>
 						{% for marque in listeMarque %}
 							<tr>
-								<th>Concessionnaire</th>
-								<th>Nom de la marque</th>
-								{% if is_granted('ROLE_ADMIN') %}
-									<th>Option</th>
-								{% endif %}
-							</tr>
-						</thead>
-						<tbody>
-							{% for marque in listeMarque %}
-								<tr>
-									<td>
-										{% for concession in marque.concessionnaires %}
-											{{concession.nom}}
-											|
-										{% endfor %}
-									</td>
-									<td scope="col">
-										<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
-											{% if is_granted('ROLE_ADMIN') %}
-												<td scope="col">
-													<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
-												</td>
-											{% endif %}
-
-										</tr>
+								<td>
+									{% for concession in marque.concessionnaires %}
+										{{concession.nom}}
+										|
 									{% endfor %}
 								</td>
 								<td scope="col">
