@@ -8,9 +8,10 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route("/", name="concession/")
@@ -18,9 +19,11 @@ use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 class ConcessionaireController extends AbstractController
 {
     private $doctrine;
-    public function __construct(ManagerRegistry $doctrine)
+    private $Username;
+    public function __construct(ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
     {
         $this->doctrine = $doctrine;
+        $this->Username = $authenticationUtils;
     }
 
 
@@ -29,6 +32,8 @@ class ConcessionaireController extends AbstractController
      */
     public function showAll(): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -41,6 +46,7 @@ class ConcessionaireController extends AbstractController
         //Ensuite pour finir on envoie cette liste au front, index.html.twig
         return $this->render('concessionaire/index.html.twig', [
             'listeConcession' => $listeConcession,
+            'user' => $lastUsername,
         ]);
     }
 
