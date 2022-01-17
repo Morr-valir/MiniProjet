@@ -36,13 +36,13 @@ class ModeleType extends AbstractType
             ->add("marque", EntityType::class, [
                 'label' => "Marque",
                 'class' => Marque::class,
-                'multiple' => true,
+                'multiple' => false,
                 'choices' => $listeMarque
             ])
             ->add("clients", EntityType::class, [
                 'label' => "Client intéréssé",
                 'class' => Client::class,
-                'multiple' => true,
+                'multiple' => false,
                 'choices' => $listeClient,
                 'required' => false
             ]);
