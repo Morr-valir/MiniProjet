@@ -14,7 +14,9 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item">
-							<a class="nav-link active text-light fw-normal" aria-current="page" href="/add">Ajouter une concession</a>
+							{% if is_granted('ROLE_ADMIN') %}
+								<a class="nav-link active text-light fw-normal" aria-current="page" href="/add">Ajouter une concession</a>
+							{% endif %}
 						</li>
 					</ul>
 				</div>
@@ -31,14 +33,18 @@
 				{% for concessionaire in listeConcession %}
 					<div class="col-md col-sm mt-5">
 						<div class="card" style="width: 18rem;">
-							<a href="{{ path('concession/delete',{'id':concessionaire.id}) }}" class="link-dark">
-								<i class="fas fa-times close"></i>
-							</a>
+							{% if is_granted('ROLE_ADMIN') %}
+								<a href="{{ path('concession/delete',{'id':concessionaire.id}) }}" class="link-dark">
+									<i class="fas fa-times close"></i>
+								</a>
+							{% endif %}
 							<div class="card-body">
 								<h5 class="card-title">{{concessionaire.nom}}</h5>
 								<div class="btn-group" role="group" aria-label="Basic example">
 									<a href="{{path('marque/showAll')}}" class="btn btn-primary">Voir les véhicules</a>
-									<a href="{{ path('concession/update',{'id':concessionaire.id}) }}" class="btn btn-danger">Modifier la concession</a>
+									{% if is_granted('ROLE_ADMIN') %}
+										<a href="{{ path('concession/update',{'id':concessionaire.id}) }}" class="btn btn-danger">Modifier la concession</a>
+									{% endif %}
 								</div>
 							</div>
 						</div>
