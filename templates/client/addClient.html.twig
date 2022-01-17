@@ -18,22 +18,29 @@
 						</li>
 					</ul>
 				</div>
-				<span class="text-light">Nom utilisateur</span>
+				{% if is_granted('ROLE_ADMIN') %}
+					<span class="text-light">Nom utilisateur :
+						{{user}}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/logout">Se déconnecter</a>
+					{% else %}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/login">Se connecter</a>
+					</span>
+				{% endif %}
 			</div>
 		</nav>
 	</header>
 	<main class="container p-5 index">
 		<div id="mode">
-		<div class="row">
-			<div class="col-md col-sm">
-				<h1 class="h1">Création du client</h1>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-md col-sm">
-				{{form(form)}}
+			<div class="row">
+				<div class="col-md col-sm">
+					<h1 class="h1">Création du client</h1>
 				</div>
 			</div>
+			<div class="row">
+				<div class="col-md col-sm">
+					{{form(form)}}
+					</div>
+				</div>
 			</div>
 		</main>
 		<style>

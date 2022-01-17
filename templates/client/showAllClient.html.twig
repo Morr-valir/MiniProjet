@@ -24,7 +24,14 @@
 
 					</ul>
 				</div>
-				<span class="text-light">Nom utilisateur:</span>
+				{% if is_granted('ROLE_ADMIN') %}
+					<span class="text-light">Nom utilisateur :
+						{{user}}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/logout">Se déconnecter</a>
+					{% else %}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/login">Se connecter</a>
+					</span>
+				{% endif %}
 
 			</div>
 		</nav>

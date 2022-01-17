@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route("/marque", name="marque/")
@@ -18,9 +19,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MarqueController extends AbstractController
 {
     private $doctrine;
-    public function __construct(ManagerRegistry $doctrine)
+    private $Username;
+    public function __construct(ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
     {
         $this->doctrine = $doctrine;
+        $this->Username = $authenticationUtils;
     }
 
 
@@ -29,12 +32,17 @@ class MarqueController extends AbstractController
      */
     public function showAll(): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
+
         $em = $this->doctrine->getManager();
         $repo = $em->getRepository(Marque::class);
         $listemarque = $repo->findAll();
         dump($listemarque);
         return $this->render('marque/marque.html.twig', [
             'listeMarque' => $listemarque,
+            'user' => $lastUsername,
             'title' => 'Platefome de vente automobile - Liste des marques '
         ]);
     }
@@ -44,6 +52,9 @@ class MarqueController extends AbstractController
      */
     public function add(Request $req): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         $em = $this->doctrine->getManager();
         $marque = new Marque();
         $formulaire = $this->createForm(MarqueType::class, $marque)->add('Ajouter', SubmitType::class, [
@@ -74,6 +85,7 @@ class MarqueController extends AbstractController
 
         return $this->renderForm('marque/addMarque.html.twig', [
             'form' => $formulaire,
+            'user' => $lastUsername,
             'title' => 'Platefome de vente automobile - Création de marque '
         ]);
     }
@@ -84,6 +96,10 @@ class MarqueController extends AbstractController
      */
     public function update(Request $req, int $id): Response
     {
+
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -120,6 +136,7 @@ class MarqueController extends AbstractController
         //Ensuite pour finir on envoie ce formualire au front, addMarque.html.twig
         return $this->renderForm('marque/addMarque.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => "Plateforme de vente automobile - Modification d''une marque'"
         ]);
     }
@@ -129,6 +146,10 @@ class MarqueController extends AbstractController
      */
     public function delete(int $id): Response
     {
+
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
 
         //Récurepation du managaer
         $em = $this->doctrine->getManager();

@@ -14,44 +14,66 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						{% if is_granted('ROLE_ADMIN') %}
-						<li class="nav-item">
-							<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('modele/add')}}">Ajouter un modele</a>
-						</li>
+							<li class="nav-item">
+								<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('modele/add')}}">Ajouter un modele</a>
+							</li>
 						{% endif %}
 					</ul>
 				</div>
-				<span class="text-light">Nom utilisateur :
-				</span>
-			</div>
-		</nav>
-	</header>
-	<main class="content-flex">
-		<section class="container p-5">
-			<div class="row">
-				<table id="dataTableModele" class="table table-striped">
-					<thead>
-						<th>Modeles</th>
-						<th>Marque</th>
-						<th>Clients</th>
-						{% if is_granted('ROLE_ADMIN') %}
-							<th>Options</th>
-							<th>Supprimer</th>
+				{% if is_granted('ROLE_ADMIN') %}
+					<span class="text-light">Nom utilisateur :
+						{{user}}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/logout">Se déconnecter</a>
+					{% else %}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/login">Se connecter</a>
+					</span>
+				{% endif %}
+			</span>
+		</div>
+	</nav>
+</header>
+<main class="content-flex">
+	<section class="container p-5">
+		<div class="row">
+			<table id="dataTableModele" class="table table-striped">
+				<thead>
+					<th>Modeles</th>
+					<th>Marque</th>
+					<th>Clients</th>
+					{% if is_granted('ROLE_ADMIN') %}
+						<th>Options</th>
+						<th>Supprimer</th>
+					{% endif %}
+				</thead>
+
+				<tbody>
+					{% for modele in listeModele %}
+						<tr>
+							<td>
+								{{modele.nom}}
+
+							</td>
+							<td>
+								{{modele.marque}}
+							</td>
+							<td>
+								{{modele.clients}}
+							</td>
+
+							{% if is_granted('ROLE_ADMIN') %}
+
+								<td>
+									<a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
+								</td>
+								<td>
+									<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
+								</td>
+							</tr>
 						{% endif %}
-					</thead>
 
-					<tbody>
-						{% for modele in listeModele %}
-							<tr>
-								<td>
-									{{modele.nom}}
+					{% endfor %}
 
-								</td>
-								<td>
-									{{modele.marque}}
-								</td>
-								<td>
-									{{modele.clients}}
-								</td>
+				</tbody>
 
 								{% if is_granted('ROLE_ADMIN') %}
 
@@ -71,18 +93,15 @@
 
 				</table>
 				<div class="btn-group w-25" role="group" aria-label="Basic example">
-					<a href="{{ path('client/showAll')}}" class="btn btn-primary">Voir tous les clients</a>
+					<a href="{{ path('client/showAll')}}" class="btn btn-danger">Voir tous les clients</a>
 				</div>
 			</div>
-		</section>
-	</main>
-{% endblock %}
-
-{% block javascripts %}
-	{{ encore_entry_script_tags('app') }}
-	<script>
-		$(document).ready(function () {
+		</div>
+	</section>
+</main>{% endblock %}{% block javascripts %}
+{{ encore_entry_script_tags('app') }}
+<script>
+	$(document).ready(function () {
 $('#dataTableModele').DataTable();
 });
-	</script>
-{% endblock %}
+</script>{% endblock %}

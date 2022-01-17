@@ -34,7 +34,7 @@ class ConcessionaireController extends AbstractController
     {
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
-        dump($this->getUser());
+        
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -57,6 +57,9 @@ class ConcessionaireController extends AbstractController
      */
     public function add(Request $req): Response
     {
+
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
 
         //Récupération du manager
         $em = $this->doctrine->getManager();
@@ -89,6 +92,7 @@ class ConcessionaireController extends AbstractController
         //Ensuite pour finir on envoie ce formulaire au front, ajoutConcess.html.twig
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => 'Plateforme de vente automobile - Ajout de concession'
         ]);
     }
@@ -98,6 +102,9 @@ class ConcessionaireController extends AbstractController
      */
     public function update(Request $req, int $id): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -129,6 +136,7 @@ class ConcessionaireController extends AbstractController
         //Ensuite pour finir on envoie ce formualire au front, ajoutConcess.html.twig
         return $this->renderForm('concessionaire/ajoutConcess.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => 'Plateforme de vente automobile - Modification de concession'
         ]);
     }

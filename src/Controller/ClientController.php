@@ -8,10 +8,11 @@ use App\Form\ClientType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
  * @Route("/client", name="client/")
@@ -20,9 +21,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ClientController extends AbstractController
 {
     private $doctrine;
-    public function __construct(ManagerRegistry $doctrine)
+    private $Username;
+    public function __construct(ManagerRegistry $doctrine,AuthenticationUtils $authenticationUtils)
     {
         $this->doctrine = $doctrine;
+        $this->Username = $authenticationUtils;
+
     }
 
     /**
@@ -30,11 +34,16 @@ class ClientController extends AbstractController
      */
     public function showAll(ManagerRegistry $doctrine): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
+
         $em = $doctrine->getManager();
         $repo = $em->getRepository(Client::class);
         $listeAll = $repo->findAll();
         return $this->render('client/showAllClient.html.twig', [
             'listeAll' => $listeAll,
+            'user' => $lastUsername, 
             'title' => 'Platefome de vente automobile - Liste des clients'
         ]);
     }
@@ -43,7 +52,9 @@ class ClientController extends AbstractController
      */
     public function add(Request $req): Response
     {
-
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+        
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -75,6 +86,7 @@ class ClientController extends AbstractController
         //Ensuite pour finir on envoie ce formulaire au front, ajoutConcess.html.twig
         return $this->renderForm('client/addClient.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => 'Plateforme de vente automobile - Ajout de client'
         ]);
     }
@@ -84,6 +96,9 @@ class ClientController extends AbstractController
      */
     public function update(Request $req, int $id): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -115,6 +130,7 @@ class ClientController extends AbstractController
         //Ensuite pour finir on envoie ce formualire au front, addMarque.html.twig
         return $this->renderForm('client/addClient.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => "Plateforme de vente automobile - Modification d''un client'"
         ]);
     }
