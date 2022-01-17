@@ -28,43 +28,46 @@
 			<div class="row">
 				<table id="dataTableModele" class="table table-striped">
 					<thead>
-                        <th>Modeles</th>
-                        <th>Clients</th>
+						<th>Modeles</th>
+						<th>Clients</th>
 						<th>Options</th>
 						<th>Supprimer</th>
 					</thead>
 
 					<tbody>
 						{% for modele in listeModele %}
-                        <tr>
-                            <td>
-                                {{modele.nom}}
-								
-                            </td>
-                            <td>
-                                {{modele.clients}}
-                            </td>
-							 <td>
-                                <a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
-                            </td>
-							<td>
-							<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
-							</td>
+							<tr>
+								<td>
+									{{modele.nom}}
 
-                        </tr>
-					
-                        {% endfor %}
-							
+								</td>
+								<td>
+									{{modele.clients}}
+								</td>
+								<td>
+									<a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
+								</td>
+								<td>
+									<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
+								</td>
+
+							</tr>
+
+						{% endfor %}
+
 					</tbody>
-					
+
 				</table>
+
+				<a href="{{ path('client/showAll')}}" class="btn btn-danger">Voir tous les clients</a>
+
 			</div>
 		</section>
 	</main>
 {% endblock %}
 
 {% block javascripts %}
-{{ encore_entry_script_tags('app') }}
+	{{ encore_entry_script_tags('app') }}
 	<script>
 		$(document).ready(function () {
 $('#dataTableModele').DataTable();

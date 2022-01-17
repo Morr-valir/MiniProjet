@@ -52,7 +52,16 @@ class MarqueController extends AbstractController
         $formulaire->handleRequest($req);
         if ($formulaire->isSubmitted() && $formulaire->isValid()) {
             $marque = $formulaire->getData();
+
             $em->persist($marque);
+
+            $tableauConcession = $marque->getConcessionnaires();
+            foreach ($tableauConcession as $concessionnaire) {
+                $concessionnaire->addMarque($marque);
+                $em->flush();
+            }
+
+            
             $em->flush();
             return $this->redirectToRoute('marque/showAll');
         }
@@ -64,7 +73,7 @@ class MarqueController extends AbstractController
     }
 
 
-     /**
+    /**
      * @Route("/update/{id}", name="update")
      */
     public function update(Request $req, int $id): Response
@@ -92,7 +101,12 @@ class MarqueController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $marque = $form->getData();
-
+            $tableauConcession = $marque->getConcessionnaires();
+            foreach ($tableauConcession as $concessionnaire) {
+                $concessionnaire->addMarque($marque);
+                $em->flush();
+            }
+            dump($marque);
             $em->flush();
             return $this->redirectToRoute('marque/showAll');
         }
@@ -103,5 +117,4 @@ class MarqueController extends AbstractController
             'title' => "Plateforme de vente automobile - Modification d''une marque'"
         ]);
     }
-
 }

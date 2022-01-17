@@ -1,9 +1,10 @@
-    {% extends 'base.html.twig' %}
+{% extends 'base.html.twig' %}
 
-    {% block title %}Liste client{% endblock %}
+{% block title %}Liste client
+{% endblock %}
 
-    {% block body %}
-    <header>
+{% block body %}
+	<header>
 		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
 			<div class="container-fluid">
 				<a class="navbar-brand text-light fw-bolder" href="#">{{title}}</a>
@@ -15,45 +16,57 @@
 						<li class="nav-item">
 							<a class="btn text-light" aria-current="page" href="{{path('concession/showAll')}}">Retour à l'accueil</a>
 						</li>
+						<li>
+							<a class="btn text-light" aria-current="page" href="{{path('client/add')}}">Ajout d'un client</a>
+						</li>
 					</ul>
 				</div>
 				<span class="text-light">Nom utilisateur</span>
 			</div>
 		</nav>
 	</header>
-    <div class="container p-5">
-        <div class=""
+	<div class="container p-5">
+		<div class="">
 
-            <table id="myTable">
+			<table id="table_id">
 
-                <thead>
-                <h1>
-                    <tr>
-                    <th>Nom</th>
-                    <th>Modèle</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                    {% for client in listeAll %}
-                    <th> {{client.Nom}}<br></th>   
-                    {% endfor %}
-                    
-                    {# {% for client in client.modele %}
-                    <th> {{modele.nom}}<br></th>   
-                    {% endfor %} #}
-                    </tr>
+				<thead>
+					<h1>
+						<tr>
+							<th>Nom</th>
+							<th>Prénom</th>
+							<th>Modèle</th>
+                            <th>Options<th>
+						</tr>
+					</thead>
+				</thead>
+				<tbody>
+					{% for client in listeAll %}
+						<tr>
+							<td>
+								{{client.nom}}
+							</td>
+							<td>
+								{{client.prenom}}
+							</td>
+							<td>
+								{{client.modele}}
+							</td>
+							<td scope="col">
+								<a href="{{ path('client/update',{'id':client.id}) }}" class="btn btn-danger">Modifier le client</a>
+							</td>
+						</tr>
+					{% endfor %}
 
-                </tbody>
-             </table>
-    </main>
-    	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+
+				</tbody>
+			</table>
+		</main>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 		<script>
 
-    $(document).ready( function () {
-    $('#myTable').DataTable();
-    } );
-
-    </script>
-    {% endblock %}
+			let table = new DataTable('#table_id', { // options
+});
+		</script>
+	{% endblock %}

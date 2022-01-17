@@ -22,14 +22,14 @@ class MarqueType extends AbstractType
     {
 
         $repo = $this->doctrine->getManager()->getRepository(Concessionnaire::class);
-        $listeMarque = $repo->findAll();
+        $listeConcessionnaire = $repo->findAll();
         $builder
             ->add('nom')
             ->add("concessionnaires", EntityType::class, [
-                'label' => "Choix de du concessionnaire",
+                'label' => "Choix du concessionnaire",
                 'class' => Concessionnaire::class,
                 'multiple' => true,
-                'choices' => $listeMarque
+                'choices' => $listeConcessionnaire
             ]);;
     }
 

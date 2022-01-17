@@ -35,7 +35,7 @@ class ClientController extends AbstractController
         $repo = $em->getRepository(Client::class) ;
 
         $listeAll = $repo->findAll();
-
+        dump($listeAll);
         return $this->render('client/showAllClient.html.twig', [
             'listeAll' => $listeAll,
             'title' => 'Platefome de vente automobile - Liste des clients'
@@ -78,6 +78,46 @@ class ClientController extends AbstractController
         return $this->renderForm('client/addClient.html.twig', [
             'form' => $form,
             'title' => 'Plateforme de vente automobile - Ajout de client'
+        ]);
+    }
+
+      /**
+     * @Route("/update/{id}", name="update")
+     */
+    public function update(Request $req, int $id): Response
+    {
+        //Récupération du manager
+        $em = $this->doctrine->getManager();
+
+        //Récupération du client ciblé
+        $client = $em->getRepository(Client::class)->find($id);
+
+
+        //Si la marque ciblé n'existe pas
+        if (!$client) {
+            throw $this->createNotFoundException('Pas de marque dans la bdd');
+        }
+
+        //Création du formulaire
+        $form = $this->createForm(ClientType::class, $client)->add('Valider', SubmitType::class, [
+            'attr' => [
+                'class' => 'btn-primary'
+            ]
+        ]);
+
+        //Validation du formulaire
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $client = $form->getData();
+
+            $em->flush();
+            return $this->redirectToRoute('client/showAll');
+        }
+
+        //Ensuite pour finir on envoie ce formualire au front, addMarque.html.twig
+        return $this->renderForm('client/addClient.html.twig', [
+            'form' => $form,
+            'title' => "Plateforme de vente automobile - Modification d''un client'"
         ]);
     }
 }
