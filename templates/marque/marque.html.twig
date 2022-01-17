@@ -56,6 +56,7 @@
 										<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
 											<td scope="col">
 												<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
+												<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
 											</td>
 										</tr>
 									{% endfor %}
