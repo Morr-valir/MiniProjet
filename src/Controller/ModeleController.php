@@ -48,7 +48,8 @@ class ModeleController extends AbstractController
             ]
         ])->add('Annuler', ButtonType::class, [
             'attr' => [
-                'class' => 'btn-danger'
+                'class' => 'btn-danger',
+                'onclick' => "location='/modele/showAll'"
             ]
         ]);
 

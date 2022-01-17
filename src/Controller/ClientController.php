@@ -60,7 +60,7 @@ class ClientController extends AbstractController
         ])->add('Annuler', ButtonType::class, [
             'attr' => [
                 'class' => 'btn-danger',
-                'onclick' =>"location='/client/showAll"
+                'onclick' => "location='/client/showAll'"
             ]
         ]);
 
