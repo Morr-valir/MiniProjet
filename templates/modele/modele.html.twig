@@ -30,6 +30,8 @@
 					<thead>
                         <th>Modeles</th>
                         <th>Clients</th>
+						<th>Options</th>
+						<th>Supprimer</th>
 					</thead>
 
 					<tbody>
@@ -37,14 +39,24 @@
                         <tr>
                             <td>
                                 {{modele.nom}}
+								
                             </td>
                             <td>
                                 {{modele.clients}}
                             </td>
-                        </tr>
-                        {% endfor %}
-					</tbody>
+							 <td>
+                                <a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
+                            </td>
+							<td>
+							<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
+							</td>
 
+                        </tr>
+					
+                        {% endfor %}
+							
+					</tbody>
+					
 				</table>
 			</div>
 		</section>
