@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
 /**
@@ -23,9 +24,11 @@ class ModeleController extends AbstractController
 
 
     private $doctrine;
-    public function __construct(ManagerRegistry $doctrine)
+    private $Username;
+    public function __construct(ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
     {
         $this->doctrine = $doctrine;
+        $this->Username = $authenticationUtils;
     }
 
 
@@ -35,6 +38,9 @@ class ModeleController extends AbstractController
      */
     public function add(Request $req): Response
     {
+
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
 
         //Récupération du manager
         $em = $this->doctrine->getManager();
@@ -67,6 +73,7 @@ class ModeleController extends AbstractController
         //Ensuite pour finir on envoie ce formulaire au front, ajoutModele.html.twig
         return $this->renderForm('modele/ajoutModele.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => 'Plateforme de vente automobile - Liste des modeles'
         ]);
     }
@@ -76,6 +83,10 @@ class ModeleController extends AbstractController
      */
     public function showAll(ManagerRegistry $doctrine): Response
     {
+
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         $em = $doctrine->getManager();
         $repo = $em->getRepository(Modele::class);
 
@@ -83,6 +94,7 @@ class ModeleController extends AbstractController
 
         return $this->render('modele/modele.html.twig', [
             'listeModele' => $listeModele,
+            'user' => $lastUsername,
         ]);
     }
 
@@ -92,6 +104,9 @@ class ModeleController extends AbstractController
      */
     public function showSelected(ManagerRegistry $doctrine, int $id): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         $em = $doctrine->getManager();
         $repoMarque = $em->getRepository(Marque::class);
 
@@ -101,6 +116,7 @@ class ModeleController extends AbstractController
 
         return $this->render('modele/modele.html.twig', [
             'listeModele' => $listeModele,
+            'user' => $lastUsername,
         ]);
     }
 
@@ -111,6 +127,9 @@ class ModeleController extends AbstractController
      */
     public function update(Request $req, int $id): Response
     {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -142,6 +161,7 @@ class ModeleController extends AbstractController
         //Ensuite pour finir on envoie ce formualire au front, ajoutConcess.html.twig
         return $this->renderForm('modele/ajoutModele.html.twig', [
             'form' => $form,
+            'user' => $lastUsername,
             'title' => "Plateforme de vente automobile - Modification d''un modele'"
         ]);
     }

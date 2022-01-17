@@ -23,79 +23,83 @@
 						</li>
 					</ul>
 				</div>
-				<span class="text-light">Nom utilisateur :
-				</span>
+				{% if is_granted('ROLE_ADMIN') %}
+					<span class="text-light">Nom utilisateur :
+						{{user}}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/logout">Se déconnecter</a>
+					{% else %}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/login">Se connecter</a>
+					</span>
+				{% endif %}
+			</span>
+		</div>
+	</nav>
+</header>
+<main>
+	<div class="container p-5">
+		<div class="row mb-5">
+			<div class="col">
+				<h2 class="h2">Liste des marques</h2>
 			</div>
-		</nav>
-	</header>
-	<main>
-		<div class="container p-5">
-			<div class="row mb-5">
-				<div class="col">
-					<h2 class="h2">Liste des marques</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col">
-					<table id="table_id" class="display">
-						<thead>
+		</div>
+		<div class="row">
+			<div class="col">
+				<table id="table_id" class="display">
+					<thead>
+						<tr>
+							<th>Concessionnaire</th>
+							<th>Nom de la marque</th>
+							{% if is_granted('ROLE_ADMIN') %}
+								<th>Option</th>
+							{% endif %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for marque in listeMarque %}
 							<tr>
-								<th>Concessionnaire</th>
-								<th>Nom de la marque</th>
-								{% if is_granted('ROLE_ADMIN') %}
-									<th>Option</th>
-								{% endif %}
-							</tr>
-						</thead>
-						<tbody>
-							{% for marque in listeMarque %}
-								<tr>
-									<td>
-										{% for concession in marque.concessionnaires %}
-											{{concession.nom}}
-											|
-										{% endfor %}
-									</td>
-									<td scope="col">
-										<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
-											{% if is_granted('ROLE_ADMIN') %}
-												<td scope="col">
-													<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
-													<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
-												</td>
-											{% endif %}
-
-										</tr>
+								<td>
+									{% for concession in marque.concessionnaires %}
+										{{concession.nom}}
+										|
 									{% endfor %}
-								</tr>
-							</tbody>
+								</td>
+								<td scope="col">
+									<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
+										{% if is_granted('ROLE_ADMIN') %}
+											<td scope="col">
+												<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
+												<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
+											</td>
+										{% endif %}
+
+									</tr>
+								{% endfor %}
+							</tr>
 						</tbody>
-					</table>
-				</div>
+					</tbody>
+				</table>
 			</div>
-			<div class="row mt-5">
-				<div class="col">
-					<h3 class="h3">Option</h3>
-					<div class="d-grid gap-2 d-md-block">
-						<a id="export" class="btn btn-warning" type="button" onclick="export()">Exporter les données</a>
-						<a class="btn btn-primary" href="{{path('modele/showAll')}}">Voir toutes les modèle</a>
-					</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col">
+				<h3 class="h3">Option</h3>
+				<div class="d-grid gap-2 d-md-block">
+					<a id="export" class="btn btn-warning" type="button" onclick="export()">Exporter les données</a>
+					<a class="btn btn-primary" href="{{path('modele/showAll')}}">Voir toutes les modèle</a>
 				</div>
 			</div>
 		</div>
-	</main>
-{% endblock %}
-{% block javascripts %}
-	<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
-	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
-	<script>
-		let table = new DataTable('#table_id', { // options
+	</div>
+</main>{% endblock %}{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
+<script>
+	let table = new DataTable('#table_id', { // options
 });
-	</script>
-	<script>
-		function export() {
+</script>
+<script>
+	function export() {
 let exportbtn = document.getElementById('table_id');
 print(exportbtn);
 };
-	</script>
-{% endblock %}
+</script>{% endblock %}
