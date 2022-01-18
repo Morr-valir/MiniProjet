@@ -87,7 +87,7 @@ class ModeleController extends AbstractController
 
         $listeModele = $repo->findAll();
 
-        return $this->render('modele/modele.html.twig', [
+        return $this->render('Navigation/listesModele.html.twig', [
             'listeModele' => $listeModele,
             'user' => $lastUsername,
         ]);
@@ -109,7 +109,7 @@ class ModeleController extends AbstractController
         $listeModele = $marqueSelected->getModeles();
         dump($listeModele);
 
-        return $this->render('modele/modele.html.twig', [
+        return $this->render('Navigation/listesModele.html.twig', [
             'listeModele' => $listeModele,
             'user' => $lastUsername,
         ]);
