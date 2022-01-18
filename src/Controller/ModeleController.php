@@ -21,6 +21,8 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class ModeleController extends AbstractController
 {
+
+
     private $doctrine;
     private $Username;
     public function __construct(ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
@@ -28,6 +30,9 @@ class ModeleController extends AbstractController
         $this->doctrine = $doctrine;
         $this->Username = $authenticationUtils;
     }
+
+
+
     /**
      * @Route("/add", name="add")
      */
@@ -66,7 +71,7 @@ class ModeleController extends AbstractController
         }
 
         //Ensuite pour finir on envoie ce formulaire au front, ajoutModele.html.twig
-        return $this->renderForm('Administration/ajoutModele.html.twig', [
+        return $this->renderForm('modele/ajoutModele.html.twig', [
             'form' => $form,
             'user' => $lastUsername,
             'title' => 'Plateforme de vente automobile - Liste des modeles'
@@ -154,7 +159,7 @@ class ModeleController extends AbstractController
         }
 
         //Ensuite pour finir on envoie ce formualire au front, ajoutConcess.html.twig
-        return $this->renderForm('Administration/ajoutModele.html.twig', [
+        return $this->renderForm('modele/ajoutModele.html.twig', [
             'form' => $form,
             'user' => $lastUsername,
             'title' => "Plateforme de vente automobile - Modification d''un modele'"
