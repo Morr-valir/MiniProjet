@@ -45,39 +45,39 @@
 		<div class="row">
 			<div class="col">
 				<table id="table_id" class="display">
-					<thead>
-						<tr>
-							<th>Concessionnaire</th>
-							<th>Nom de la marque</th>
-							{% if is_granted('ROLE_ADMIN') %}
-								<th>Option</th>
-							{% endif %}
-						</tr>
-					</thead>
-					<tbody>
-						{% for marque in listeMarque %}
-							<tr>
-								<td>
-									{% for concession in marque.concessionnaires %}
-										{{concession.nom}}
-										|
-									{% endfor %}
-								</td>
-								<td scope="col">
-									<a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
-										{% if is_granted('ROLE_ADMIN') %}
-											<td scope="col">
-												<a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
-												<a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
-											</td>
-										{% endif %}
+                    <thead>
+                        <tr>
+                            <th>Concessionnaire</th>
+                            <th>Nom de la marque</th>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <th>Option</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for marque in listeMarque %}
+                            <tr>
+                                <td>
+                                    {% for concession in marque.concessionnaires %}
+                                        {{concession.nom}}
+                                        |
+                                    {% endfor %}
+                                </td>
+                                <td scope="col">
+                                    <a class="btn link-dark fw-bold" href="#">{{marque}}<a></td>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <td scope="col">
+                                                <a href="{{ path('marque/update',{'id':marque.id}) }}" class="btn btn-danger">Modifier la marque</a>
+                                                <a href="{{ path('marque/delete',{'id':marque.id}) }}" class="btn btn-dark">Supprimer</td>
+                                            </td>
+                                        {% endif %}
 
-									</tr>
-								{% endfor %}
-							</tr>
-						</tbody>
-					</tbody>
-				</table>
+                                    </tr>
+                                {% endfor %}
+                            </tr>
+                        </tbody>
+                    </tbody>
+                </table>
 			</div>
 		</div>
 		<div class="row mt-5">
