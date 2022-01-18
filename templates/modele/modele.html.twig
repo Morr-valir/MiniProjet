@@ -36,62 +36,46 @@
 	<section class="container p-5">
 		<div class="row">
 			<table id="dataTableModele" class="table table-striped">
-				<thead>
-					<th>Modeles</th>
-					<th>Marque</th>
-					<th>Clients</th>
-					{% if is_granted('ROLE_ADMIN') %}
-						<th>Options</th>
-						<th>Supprimer</th>
-					{% endif %}
-				</thead>
+                <thead>
+                    <th>Modeles</th>
+                    <th>Marque</th>
+                    <th>Clients</th>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <th>Options</th>
+                        <th>Supprimer</th>
+                    {% endif %}
+                </thead>
 
-				<tbody>
-					{% for modele in listeModele %}
-						<tr>
-							<td>
-								{{modele.nom}}
+                <tbody>
+                    {% for modele in listeModele %}
+                        <tr>
+                            <td>
+                                {{modele.nom}}
 
-							</td>
-							<td>
-								{{modele.marque}}
-							</td>
-							<td>
-								{{modele.clients}}
-							</td>
+                            </td>
+                            <td>
+                                {{modele.marque}}
+                            </td>
+                            <td>
+                                {{modele.clients}}
+                            </td>
 
-							{% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_ADMIN') %}
 
-								<td>
-									<a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
-								</td>
-								<td>
-									<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
-								</td>
-							</tr>
-						{% endif %}
+                                <td>
+                                    <a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
+                                </td>
+                                <td>
+                                    <a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
+                                </td>
+                            </tr>
+                        {% endif %}
 
-					{% endfor %}
+                    {% endfor %}
 
-				</tbody>
+                </tbody>
 
-								{% if is_granted('ROLE_ADMIN') %}
-
-									<td>
-										<a href="{{ path('modele/update',{'id':modele.id}) }}" class="btn btn-warning">Modifier le modele</a>
-									</td>
-									<td>
-										<a href="{{ path('modele/delete',{'id':modele.id}) }}" class="btn btn-danger">Supprimer le modèle</a>
-									</td>
-								</tr>
-							{% endif %}
-
-
-						{% endfor %}
-
-					</tbody>
-
-				</table>
+            </table>
 				<div class="btn-group w-25" role="group" aria-label="Basic example">
 					<a href="{{ path('client/showAll')}}" class="btn btn-danger">Voir tous les clients</a>
 				</div>
