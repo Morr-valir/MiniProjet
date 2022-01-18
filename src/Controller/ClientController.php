@@ -6,12 +6,14 @@ use App\Entity\Client;
 use App\Entity\Modele;
 use App\Form\ClientType;
 use Doctrine\Persistence\ManagerRegistry;
+use PHPUnit\Util\Json;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -22,11 +24,10 @@ class ClientController extends AbstractController
 {
     private $doctrine;
     private $Username;
-    public function __construct(ManagerRegistry $doctrine,AuthenticationUtils $authenticationUtils)
+    public function __construct(ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
     {
         $this->doctrine = $doctrine;
         $this->Username = $authenticationUtils;
-
     }
 
     /**
@@ -41,12 +42,57 @@ class ClientController extends AbstractController
         $em = $doctrine->getManager();
         $repo = $em->getRepository(Client::class);
         $listeAll = $repo->findAll();
+        
         return $this->render('client/showAllClient.html.twig', [
             'listeAll' => $listeAll,
-            'user' => $lastUsername, 
+            'user' => $lastUsername,
+            'jsonFile' => json_encode($listeAll),
             'title' => 'Platefome de vente automobile - Liste des clients'
         ]);
     }
+
+
+    /**
+     * @Route("/showSelected/{id}", name="showSelected")
+     */
+    public function showSelected(ManagerRegistry $doctrine, int $id): Response
+    {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
+
+        $em = $doctrine->getManager();
+        $repoClient = $em->getRepository(Client::class);
+        $listeAll = $repoClient->findAll();
+
+        $clientSelected = $repoClient->find($id);
+
+        return $this->render('client/showAllClient.html.twig', [
+            'listeAll' => $listeAll,
+            'clientSelected' => $clientSelected,
+            'user' => $lastUsername,
+            'title' => 'Platefome de vente automobile - Liste des clients'
+        ]);
+    }
+    
+    /**
+     * @Route("/jsonFile", name="jsonFile")
+     */
+    // public function getJson(ManagerRegistry $doctrine, int $id): Response
+    // {
+    //     $error = $this->Username->getLastAuthenticationError();
+    //     $lastUsername = $this->Username->getLastUsername();
+
+    //     $em = $doctrine->getManager();
+    //     $repoClient = $em->getRepository(Client::class);
+    //     $listeAll = $repoClient->findAll();
+    //     $json = json_encode($listeAll);
+    //     // return new JsonResponse($json);
+
+    //     return new Response(json_encode(array('name' => "test")));
+
+    // }
+
+
     /**
      * @Route("/add", name="add")
      */
@@ -54,7 +100,7 @@ class ClientController extends AbstractController
     {
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
-        
+
         //Récupération du manager
         $em = $this->doctrine->getManager();
 
@@ -77,7 +123,7 @@ class ClientController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $client1 = $form->getData();
-            
+
             $em->persist($client1);
             $em->flush();
             return $this->redirectToRoute('client/showAll');

@@ -32,6 +32,16 @@ class Client
      */
     private $modele;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $Mail;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $NumeroTel;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,5 +95,29 @@ class Client
     public function __toString()
     {
         return $this->nom;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->Mail;
+    }
+
+    public function setMail(string $Mail): self
+    {
+        $this->Mail = $Mail;
+
+        return $this;
+    }
+
+    public function getNumeroTel(): ?int
+    {
+        return $this->NumeroTel;
+    }
+
+    public function setNumeroTel(int $NumeroTel): self
+    {
+        $this->NumeroTel = $NumeroTel;
+
+        return $this;
     }
 }
