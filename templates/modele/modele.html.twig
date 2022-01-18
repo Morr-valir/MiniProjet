@@ -81,11 +81,8 @@
 				</div>
 			</div>
 		</div>
-	</section>
-</main>{% endblock %}{% block javascripts %}
-{{ encore_entry_script_tags('app') }}
-<script>
-	$(document).ready(function () {
+	</div>
+</section></main>{% endblock %}{% block javascripts %}{{ encore_entry_script_tags('app') }}<script>
+$(document).ready(function () {
 $('#dataTableModele').DataTable();
-});
-</script>{% endblock %}
+});</script>{% endblock %}
