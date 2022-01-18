@@ -40,7 +40,7 @@ class MarqueController extends AbstractController
         $repo = $em->getRepository(Marque::class);
         $listemarque = $repo->findAll();
         dump($listemarque);
-        return $this->render('marque/marque.html.twig', [
+        return $this->render('Navigation/listesMarques.html.twig', [
             'listeMarque' => $listemarque,
             'user' => $lastUsername,
             'title' => 'Platefome de vente automobile - Liste des marques '
@@ -83,7 +83,7 @@ class MarqueController extends AbstractController
             return $this->redirectToRoute('marque/showAll');
         }
 
-        return $this->renderForm('marque/addMarque.html.twig', [
+        return $this->renderForm('Administration/addMarque.html.twig', [
             'form' => $formulaire,
             'user' => $lastUsername,
             'title' => 'Platefome de vente automobile - Création de marque '
@@ -134,7 +134,7 @@ class MarqueController extends AbstractController
         }
 
         //Ensuite pour finir on envoie ce formualire au front, addMarque.html.twig
-        return $this->renderForm('marque/addMarque.html.twig', [
+        return $this->renderForm('Administration/addMarque.html.twig', [
             'form' => $form,
             'user' => $lastUsername,
             'title' => "Plateforme de vente automobile - Modification d''une marque'"
