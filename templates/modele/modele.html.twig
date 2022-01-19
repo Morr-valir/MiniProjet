@@ -31,13 +31,13 @@
 			</span>
 		</div>
 	</nav>
-</header>
+</header> 
 <main class="content-flex">
 	<section class="container p-5">
 		<div class="row">
 			<table id="dataTableModele" class="table table-striped">
 
-				<thead> 
+				<thead>
 					<th>Modeles</th>
 					<th>Marque</th>
 					<th>Clients</th>
@@ -167,8 +167,11 @@ modal.style.display = "none";
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
-}</style>{% endblock %}{% block javascripts %}{{ encore_entry_script_tags('app') }}<script>$(document).ready(function () {
+}</style>
+	<script>$(document).ready(function () {
 $('#dataTableModele').DataTable();
-});</script>{% endblock %}
+});
+</script>
+{% endblock %}
 
 
