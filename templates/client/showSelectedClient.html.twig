@@ -37,9 +37,34 @@
 		</nav>
 	</header>
 
-	<div>
-		<p>Nom: {{clientSelected.nom}}</p>
-		<p>Nom: {{clientSelected.prenom}}</p>
+	<main class="container">
+		<div class="row">
+			<div class="col_12">
+				<h1 class="h2 mb-5 mt-5">Informations clients</h1>
+			</div>
+			<div class="col-12 mb-4">
+				<figure>
+					<img src="/img/user-profil.png" alt="profil client" width="150px">
+				</figure>
+			</div>
+			<div class="col-12 mb-4">
+				<p>
+					<b>Nom Du client :
+						{{clientSelected.nom}}</p>
+				</p>
+				<p>
+					<b>Prènom du client :
+						{{clientSelected.prenom}}</p>
+				</p>
+				<p>
+					<b>Modèles du véhicule choisi :
+						{{clientSelected.modele}}</p>
+				</p>
+			</b>
+			<div class="col-12">
+				<h2 class="h3">Option</h2>
+				<hr>
+			</div>
+		</p>
 	</div>
-		</main>
-	{% endblock %}
+</div></main>{% endblock %}

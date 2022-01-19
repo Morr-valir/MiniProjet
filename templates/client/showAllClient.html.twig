@@ -38,18 +38,15 @@
 	</header>
 	<div class="container p-5">
 		<div class="">
-
 			<table id="table_id">
-
 				<thead>
 					<h1>
 						<tr>
-							<th>Nom</th> 
+							<th>Nom</th>
 							<th>Prénom</th>
 							<th>Modèle</th>
 							{% if is_granted('ROLE_ADMIN') %}
 								<th>Options</th>
-								<th>Supprimer</th>
 							{% endif %}
 
 						</tr>
@@ -60,7 +57,7 @@
 						{# <tr onclick="getClientId({{client.id}})"> #}
 						<tr>
 							<td>
-								<a href="{{ path('client/showSelected',{'id':client.id}) }}" >{{client.nom}}</a>
+								<a href="{{ path('client/showSelected',{'id':client.id}) }}">{{client.nom}}</a>
 							</td>
 							<td>
 								{{client.prenom}}
@@ -72,15 +69,13 @@
 							{% if is_granted('ROLE_ADMIN') %}
 								<td scope="col">
 									<a href="{{ path('client/update',{'id':client.id}) }}" class="btn btn-danger">Modifier le client</a>
-								</td>
-								<td>
-									<a href="{{ path('client/delete',{'id':client.id}) }}" class="btn btn-danger">Supprimer le client</a>
+									<a href="{{ path('client/delete',{'id':client.id}) }}" class="btn btn-dark">Supprimer le client</a>
 								</td>
 							{% endif %}
 
 						</tr>
 					{% endfor %}
-				{# {{jsonFile}} #}
+					{# {{jsonFile}} #}
 				</tbody>
 			</table>
 
@@ -93,28 +88,24 @@
 			let table = new DataTable('#table_id', { // options
 });
 		</script>
-		
-		<script>
 
-			//Récupérer l'id du client selectionné
-			// function getClientId(clientIdGiven) {
-			// 	var clientId = clientIdGiven;
-				
-			// //Création de l'objet XMLHttpRequest
-			// var req = new XMLHttpRequest(); 
-			
-			//On initialise notre requête avec open()
-			// req.open("GET", "http://localhost:8000/client/jsonFile");
-			
-			//Format de la réponse
-			// req.responseType = "json";
+		<script>// Récupérer l'id du client selectionné
+// function getClientId(clientIdGiven) {
+// var clientId = clientIdGiven;
 
-			//Envoie de la requête
-			// req.send();
+// //Création de l'objet XMLHttpRequest
+// var req = new XMLHttpRequest();
 
-			// console.log(req.response);
-			}
-		
-			
-		</script>
-	{% endblock %}
+// On initialise notre requête avec open()
+// req.open("GET", "http://localhost:8000/client/jsonFile");
+
+// Format de la réponse
+// req.responseType = "json";
+
+// Envoie de la requête
+// req.send();
+
+// console.log(req.response);
+}
+	</script>
+{% endblock %}
