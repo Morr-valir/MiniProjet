@@ -68,6 +68,11 @@
 			<div class="col-12">
 				<h2 class="h3">Option</h2>
 				<hr>
+				{% if clientSelected.modele == null %}
+					<div>
+						<a href="{{ path('client/update',{'id':clientSelected.id}) }}" class="btn btn-danger">Modifier le client</a>
+					</div>
+				{% endif %}
 			</div>
 		</p>
 	</div>
