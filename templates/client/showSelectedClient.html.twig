@@ -38,9 +38,10 @@
 	</header>
 
 	<main class="container">
-		<div class="row">
+		<div class="row mt-5">
 			<div class="col_12">
-				<h1 class="h2 mb-5 mt-5">Informations clients</h1>
+				<a class="" href="/client/showAll">retour au tableau</a>
+				<h1 class="h2 mb-5">Informations clients</h1>
 			</div>
 			<div class="col-12 mb-4">
 				<figure>
@@ -65,15 +66,15 @@
 					{% endif %}
 				</p>
 			</b>
-			<div class="col-12">
-				<h2 class="h3">Option</h2>
-				<hr>
-				{% if clientSelected.modele == null %}
+			{% if clientSelected.modele == null %}
+				<div class="col-12">
+					<h2 class="h3">Option</h2>
+					<hr>
 					<div>
 						<a href="{{ path('client/update',{'id':clientSelected.id}) }}" class="btn btn-danger">Modifier le client</a>
 					</div>
-				{% endif %}
-			</div>
-		</p>
+				</div>
+			{% endif %}
+		</div>
 	</div>
-</div></main>{% endblock %}
+</main>{% endblock %}
