@@ -57,7 +57,7 @@
 						{# <tr onclick="getClientId({{client.id}})"> #}
 						<tr>
 							<td>
-								<a href="{{ path('client/showSelected',{'id':client.id}) }}">{{client.nom}}</a>
+								{{client.nom}}
 							</td>
 							<td>
 								{{client.prenom}}
@@ -68,6 +68,7 @@
 
 							{% if is_granted('ROLE_ADMIN') %}
 								<td scope="col">
+									<a href="{{ path('client/showSelected',{'id':client.id})}}" class="btn btn-primary">Consulter</a>
 									<a href="{{ path('client/update',{'id':client.id}) }}" class="btn btn-danger">Modifier le client</a>
 									<a href="{{ path('client/delete',{'id':client.id}) }}" class="btn btn-dark">Supprimer le client</a>
 								</td>

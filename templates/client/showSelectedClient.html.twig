@@ -57,8 +57,12 @@
 						{{clientSelected.prenom}}</p>
 				</p>
 				<p>
-					<b>Modèles du véhicule choisi :
-						{{clientSelected.modele}}</p>
+					{% if clientSelected.modele == null %}
+						<b style="color:red;">Aucun modeles rataché au client</b>
+					{% else %}
+						<b>Modèles du véhicule choisi :
+							{{clientSelected.modele}}</p>
+					{% endif %}
 				</p>
 			</b>
 			<div class="col-12">
