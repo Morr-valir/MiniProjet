@@ -121,8 +121,8 @@ class ClientController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $client1 = $form->getData();
 
-            if ($client1->getModele()->getModele() != null) {
-                $client1->getClients()->setModele(null);
+            if ($client1->getModele() != null) {
+                $client1->setModele();
                 $em->flush();
             }
 
