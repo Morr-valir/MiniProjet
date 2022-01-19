@@ -100,7 +100,8 @@ class ClientController extends AbstractController
 
         //Récupération du manager
         $em = $this->doctrine->getManager();
-
+        $repoClient = $em->getRepository(Client::class);
+        
         $client1 = new Client();
 
         //Création du formulaire
@@ -122,7 +123,12 @@ class ClientController extends AbstractController
             $client1 = $form->getData();
 
             if ($client1->getModele() != null) {
-                $client1->setModele();
+                $modeleToCheck = $client1->getModele();
+                if($clientAttached = $repoClient->findOneBy([
+                    'modele' => $modeleToCheck,
+                ])){
+                $clientAttached->setModele(null);
+                }
                 $em->flush();
             }
 
