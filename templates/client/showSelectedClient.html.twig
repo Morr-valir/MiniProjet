@@ -16,12 +16,6 @@
 						<li class="nav-item">
 							<a class="btn text-light" aria-current="page" href="/">Retour à l'accueil</a>
 						</li>
-						{% if is_granted('ROLE_ADMIN') %}
-							<li>
-								<a class="btn text-light" aria-current="page" href="{{path('client/add')}}">Ajout d'un client</a>
-							</li>
-						{% endif %}
-
 					</ul>
 				</div>
 				{% if is_granted('ROLE_ADMIN') %}
