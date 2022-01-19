@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\Marque;
 use App\Entity\Modele;
 use App\Form\ModeleType;
@@ -194,18 +195,27 @@ class ModeleController extends AbstractController
         //Récurepation du managaer
         $em = $this->doctrine->getManager();
 
-        //Récupération du repository
+        //Récupération des repository
         $repo = $em->getRepository(Modele::class);
+        $repoClient = $em->getRepository(Client::class);
 
-        //Récupération de la concession ciblé
+        //Récupération du model ciblé
         $modele = $repo->find($id);
 
-        //Si la concession ciblé n'existe pas 
+        //Si le modele ciblé n'existe pas 
         if (!$modele) {
             throw $this->createNotFoundException('Modele inexistante');
         }
 
         //Suppression de l'objet ciblé ($modele) en BDD
+
+        if ($clientAttached = $repoClient->findOneBy([
+            'modele' => $modele,
+        ])) {
+            $clientAttached->setModele(null);
+            $em->flush();
+        }
+
         $em->remove($modele);
         $em->flush();
 

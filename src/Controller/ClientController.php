@@ -64,7 +64,7 @@ class ClientController extends AbstractController
 
         $clientSelected = $repoClient->find($id);
 
-        return $this->render('client/showAllClient.html.twig', [
+        return $this->render('client/showSelectedClient.html.twig', [
             'clientSelected' => $clientSelected,
             'user' => $lastUsername,
             'title' => 'Platefome de vente automobile - Liste des clients'
