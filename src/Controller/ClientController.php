@@ -42,7 +42,7 @@ class ClientController extends AbstractController
         $em = $doctrine->getManager();
         $repo = $em->getRepository(Client::class);
         $listeAll = $repo->findAll();
-        
+
         return $this->render('client/showAllClient.html.twig', [
             'listeAll' => $listeAll,
             'user' => $lastUsername,
@@ -70,7 +70,7 @@ class ClientController extends AbstractController
             'title' => 'Platefome de vente automobile - Liste des clients'
         ]);
     }
-    
+
     /**
      * @Route("/jsonFile", name="jsonFile")
      */
@@ -101,7 +101,7 @@ class ClientController extends AbstractController
         //Récupération du manager
         $em = $this->doctrine->getManager();
         $repoClient = $em->getRepository(Client::class);
-        
+
         $client1 = new Client();
 
         //Création du formulaire
@@ -120,19 +120,19 @@ class ClientController extends AbstractController
         //Validation du formulaire
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
-            $client1 = $form->getData();
+            $client = $form->getData();
 
-            if ($client1->getModele() != null) {
-                $modeleToCheck = $client1->getModele();
-                if($clientAttached = $repoClient->findOneBy([
+            if ($client->getModele() != null) {
+                $modeleToCheck = $client->getModele();
+                if ($clientAttached = $repoClient->findOneBy([
                     'modele' => $modeleToCheck,
-                ])){
-                $clientAttached->setModele(null);
+                ])) {
+                    $clientAttached->setModele(null);
                 }
                 $em->flush();
             }
 
-            $em->persist($client1);
+            $em->persist($client);
             $em->flush();
             return $this->redirectToRoute('client/showAll');
         }
@@ -155,9 +155,10 @@ class ClientController extends AbstractController
 
         //Récupération du manager
         $em = $this->doctrine->getManager();
+        $repoClient = $em->getRepository(Client::class);
 
         //Récupération du client ciblé
-        $client = $em->getRepository(Client::class)->find($id);
+        $client = $repoClient->find($id);
 
 
         //Si la marque ciblé n'existe pas
@@ -176,7 +177,16 @@ class ClientController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $client = $form->getData();
-
+            // if ($client->getModele() != null) {
+            //     $modeleToCheck = $client->getModele();
+            //     $clientAttached = $repoClient->findOneBy([
+            //         'modele' => $modeleToCheck,
+            //     ]);
+            //     if ($clientAttached){
+            //         dump("SetModele à null");
+            //         $clientAttached->setModele(null);
+            //     }
+            // }
             $em->flush();
             return $this->redirectToRoute('client/showAll');
         }
