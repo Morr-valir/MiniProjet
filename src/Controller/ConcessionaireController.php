@@ -44,7 +44,7 @@ class ConcessionaireController extends AbstractController
         //Récupération de tout les objets du repository Concessionnaire
         $listeConcession = $repo->findAll();
 
-        //Ensuite pour finir on envoie cette liste au front, index.html.twig
+        //Ensuite pour finir on envoie cette liste au front, Home.html.twig
         return $this->render('Home/Home.html.twig', [
             'listeConcession' => $listeConcession,
             'user' => $lastUsername,
