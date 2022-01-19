@@ -5,6 +5,9 @@ namespace App\Controller;
 use App\Entity\Marque;
 use App\Entity\Modele;
 use App\Form\ModeleType;
+use App\Repository\ClientRepository;
+use App\Repository\ModeleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,11 +27,17 @@ class ModeleController extends AbstractController
 
 
     private $doctrine;
+    private $manager;
     private $Username;
-    public function __construct(ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
+    private $repoClients;
+    private $repoModeles;
+    public function __construct(EntityManagerInterface $manager, ClientRepository $repoClients, ModeleRepository $repoModeles,  ManagerRegistry $doctrine, AuthenticationUtils $authenticationUtils)
     {
         $this->doctrine = $doctrine;
         $this->Username = $authenticationUtils;
+        $this->repoClients = $repoClients;
+        $this->repoModeles = $repoModeles;
+        $this->manager = $manager;
     }
 
 
@@ -83,17 +92,14 @@ class ModeleController extends AbstractController
      */
     public function showAll(ManagerRegistry $doctrine): Response
     {
-
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
-
-        $em = $doctrine->getManager();
-        $repo = $em->getRepository(Modele::class);
-
-        $listeModele = $repo->findAll();
+        $listeClients = $this->repoClients->findAll();
+        $listeModeles = $this->repoModeles->findAll();
 
         return $this->render('Navigation/listesModele.html.twig', [
-            'listeModele' => $listeModele,
+            'listeModele' => $listeModeles,
+            'listeClient' => $listeClients,
             'user' => $lastUsername,
         ]);
     }
