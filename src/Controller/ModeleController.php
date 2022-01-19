@@ -94,6 +94,8 @@ class ModeleController extends AbstractController
     {
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
+
+        //listes des données clients & modeles
         $listeClients = $this->repoClients->findAll();
         $listeModeles = $this->repoModeles->findAll();
 
