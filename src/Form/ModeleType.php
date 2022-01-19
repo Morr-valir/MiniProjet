@@ -22,10 +22,6 @@ class ModeleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
 
-        $repoClient = $this->doctrine->getManager()->getRepository(Client::class);
-        $listeClient = $repoClient->findAll();
-        dump($listeClient);
-
         $repoMarque = $this->doctrine->getManager()->getRepository(Marque::class);
         $listeMarque = $repoMarque->findAll();
         dump($listeMarque);
@@ -38,14 +34,7 @@ class ModeleType extends AbstractType
                 'class' => Marque::class,
                 'multiple' => false,
                 'choices' => $listeMarque
-            ])
-            ->add("clients", EntityType::class, [
-                'label' => "Client intéréssé",
-                'class' => Client::class,
-                'multiple' => false,
-                'choices' => $listeClient,
-                'required' => false
-            ]);;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

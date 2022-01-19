@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste client
+{% endblock %}
+
+{% block body %}
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand text-light fw-bolder" href="/">{{title}}</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="btn text-light" aria-current="page" href="/">Retour à l'accueil</a>
+						</li>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li>
+								<a class="btn text-light" aria-current="page" href="{{path('client/add')}}">Ajout d'un client</a>
+							</li>
+						{% endif %}
+
+					</ul>
+				</div>
+				{% if is_granted('ROLE_ADMIN') %}
+					<span class="text-light">Nom utilisateur :
+						{{user}}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/logout">Se déconnecter</a>
+					{% else %}
+						<a class="nav-link active text-light fw-normal" aria-current="page" href="/login">Se connecter</a>
+					</span>
+				{% endif %}
+
+			</div>
+		</nav>
+	</header>
+        
+		</main>
+	{% endblock %}

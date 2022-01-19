@@ -46,7 +46,6 @@ class ClientController extends AbstractController
         return $this->render('client/showAllClient.html.twig', [
             'listeAll' => $listeAll,
             'user' => $lastUsername,
-            'jsonFile' => json_encode($listeAll),
             'title' => 'Platefome de vente automobile - Liste des clients'
         ]);
     }
@@ -62,12 +61,10 @@ class ClientController extends AbstractController
 
         $em = $doctrine->getManager();
         $repoClient = $em->getRepository(Client::class);
-        $listeAll = $repoClient->findAll();
 
         $clientSelected = $repoClient->find($id);
 
         return $this->render('client/showAllClient.html.twig', [
-            'listeAll' => $listeAll,
             'clientSelected' => $clientSelected,
             'user' => $lastUsername,
             'title' => 'Platefome de vente automobile - Liste des clients'
@@ -123,6 +120,11 @@ class ClientController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $client1 = $form->getData();
+
+            if ($client1->getModele()->getModele() != null) {
+                $client1->getClients()->setModele(null);
+                $em->flush();
+            }
 
             $em->persist($client1);
             $em->flush();

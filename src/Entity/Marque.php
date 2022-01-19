@@ -37,7 +37,7 @@ class Marque
     public function __construct()
     {
         $this->concessionnaires = new ArrayCollection();
-        $this->modeles = new ArrayCollection();
+        // $this->modeles = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,6 +84,11 @@ class Marque
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
     /**
      * @return Collection|Modele[]
      */
@@ -113,10 +118,7 @@ class Marque
 
         return $this;
     }
-    public function __toString()
-    {
-        return $this->nom;
-    }
+
 
 
 }

@@ -27,11 +27,6 @@ class Modele
      */
     private $marque;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Client::class, inversedBy="modele", cascade={"persist", "remove"})
-     */
-    private $clients;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -61,19 +56,8 @@ class Modele
         return $this;
     }
 
-    public function getClients(): ?Client
-    {
-        return $this->clients;
-    }
-
-    public function setClients(?Client $clients): self
-    {
-        $this->clients = $clients;
-
-        return $this;
-    }
     public function __toString()
     {
-        return $this->getNom();
+        return $this->nom;
     }
 }

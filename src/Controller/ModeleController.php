@@ -149,6 +149,16 @@ class ModeleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $modele = $form->getData();
 
+            // if ($modele->getClients()->getModele() != null) {
+            //     dump("Passage dans le if");
+            //     $modele->getClients()->setModele(null);
+            //     $em->flush();
+            // } else {
+            //     dump("Passage dans le else");
+            //     $em->flush();
+            // }
+
+
             $em->flush();
             return $this->redirectToRoute('modele/showAll');
         }

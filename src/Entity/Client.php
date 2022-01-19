@@ -28,19 +28,9 @@ class Client
     private $prenom;
 
     /**
-     * @ORM\OneToOne(targetEntity=Modele::class, mappedBy="clients", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Modele::class, cascade={"persist", "remove"})
      */
     private $modele;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $Mail;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $NumeroTel;
 
     public function getId(): ?int
     {
@@ -78,16 +68,6 @@ class Client
 
     public function setModele(?Modele $modele): self
     {
-        // unset the owning side of the relation if necessary
-        if ($modele === null && $this->modele !== null) {
-            $this->modele->setClients(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($modele !== null && $modele->getClients() !== $this) {
-            $modele->setClients($this);
-        }
-
         $this->modele = $modele;
 
         return $this;
@@ -95,29 +75,5 @@ class Client
     public function __toString()
     {
         return $this->nom;
-    }
-
-    public function getMail(): ?string
-    {
-        return $this->Mail;
-    }
-
-    public function setMail(string $Mail): self
-    {
-        $this->Mail = $Mail;
-
-        return $this;
-    }
-
-    public function getNumeroTel(): ?int
-    {
-        return $this->NumeroTel;
-    }
-
-    public function setNumeroTel(int $NumeroTel): self
-    {
-        $this->NumeroTel = $NumeroTel;
-
-        return $this;
     }
 }
