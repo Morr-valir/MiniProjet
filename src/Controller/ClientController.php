@@ -3,17 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Client;
-use App\Entity\Modele;
 use App\Form\ClientType;
+use App\Service\appelAPI;
 use Doctrine\Persistence\ManagerRegistry;
-use PHPUnit\Util\Json;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
@@ -33,8 +31,10 @@ class ClientController extends AbstractController
     /**
      * @Route("/showAll", name="showAll")
      */
-    public function showAll(ManagerRegistry $doctrine): Response
+    public function showAll(ManagerRegistry $doctrine, appelAPI $appelAPI): Response
     {
+        // dd($appelAPI->getConcessionnaire());
+
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
 
@@ -71,20 +71,6 @@ class ClientController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/jsonFile", name="jsonFile")
-     */
-    public function getJson(ManagerRegistry $doctrine): Response
-    {
-        $error = $this->Username->getLastAuthenticationError();
-        $lastUsername = $this->Username->getLastUsername();
-
-        $em = $doctrine->getManager();
-        $repoClient = $em->getRepository(Client::class);
-        $listeAll = $repoClient->findAll();
-        dump($listeAll);
-        return $this->json($listeAll);
-    }
 
 
     /**
