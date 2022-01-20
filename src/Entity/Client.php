@@ -2,33 +2,43 @@
 
 namespace App\Entity;
 
-use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ClientRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
+ *  @ApiResource(
+ *     normalizationContext={"groups"={"client:read"}},
+ * )
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
+
 class Client
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("client:read")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("client:read")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("client:read")
      */
     private $prenom;
 
     /**
      * @ORM\OneToOne(targetEntity=Modele::class, cascade={"persist", "remove"})
+     * @Groups("client:read")
      */
     private $modele;
 

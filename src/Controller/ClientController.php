@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Client;
 use App\Form\ClientType;
+use App\Service\appelAPI;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,8 +31,10 @@ class ClientController extends AbstractController
     /**
      * @Route("/showAll", name="showAll")
      */
-    public function showAll(ManagerRegistry $doctrine): Response
+    public function showAll(ManagerRegistry $doctrine, appelAPI $appelAPI): Response
     {
+        // dd($appelAPI->getConcessionnaire());
+
         $error = $this->Username->getLastAuthenticationError();
         $lastUsername = $this->Username->getLastUsername();
 
@@ -68,13 +71,6 @@ class ClientController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/jsonFile", name="jsonFile")
-     */
-    public function getJson(): Response 
-    {
-      return $this->render('client/showAll.html.twig');
-    }
 
 
     /**
