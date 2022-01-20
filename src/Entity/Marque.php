@@ -34,10 +34,16 @@ class Marque
      */
     private $modeles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=ConcessionnaireAPI::class, mappedBy="marques")
+     */
+    private $concessionnaireAPIs;
+
     public function __construct()
     {
         $this->concessionnaires = new ArrayCollection();
         // $this->modeles = new ArrayCollection();
+        $this->concessionnaireAPIs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -114,6 +120,33 @@ class Marque
             if ($modele->getMarque() === $this) {
                 $modele->setMarque(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ConcessionnaireAPI[]
+     */
+    public function getConcessionnaireAPIs(): Collection
+    {
+        return $this->concessionnaireAPIs;
+    }
+
+    public function addConcessionnaireAPI(ConcessionnaireAPI $concessionnaireAPI): self
+    {
+        if (!$this->concessionnaireAPIs->contains($concessionnaireAPI)) {
+            $this->concessionnaireAPIs[] = $concessionnaireAPI;
+            $concessionnaireAPI->addMarque($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConcessionnaireAPI(ConcessionnaireAPI $concessionnaireAPI): self
+    {
+        if ($this->concessionnaireAPIs->removeElement($concessionnaireAPI)) {
+            $concessionnaireAPI->removeMarque($this);
         }
 
         return $this;

@@ -91,22 +91,22 @@
 		</script>
 
 		<script>// Récupérer l'id du client selectionné
-// function getClientId(clientIdGiven) {
-// var clientId = clientIdGiven;
+function getClientId(clientIdGiven) {
+var clientId = clientIdGiven;
 
-// //Création de l'objet XMLHttpRequest
-// var req = new XMLHttpRequest();
+//Création de l'objet XMLHttpRequest
+var req = new XMLHttpRequest();
 
-// On initialise notre requête avec open()
-// req.open("GET", "http://localhost:8000/client/jsonFile");
+On initialise notre requête avec open()
+req.open("GET", "http://localhost:8000/api/concessionnaire_a_p_is?page=1");
 
 // Format de la réponse
-// req.responseType = "json";
+req.responseType = "json";
 
 // Envoie de la requête
-// req.send();
+req.send();
 
-// console.log(req.response);
+console.log(req.response);
 }
 	</script>
 {% endblock %}
