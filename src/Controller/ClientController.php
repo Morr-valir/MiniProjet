@@ -158,9 +158,8 @@ class ClientController extends AbstractController
         $repoClient = $em->getRepository(Client::class);
 
         //Récupération du client ciblé
-        $client = $repoClient->find($id);
-
-
+        $client = new Client();
+        $client = $repoClient->find($id); 
         //Si la marque ciblé n'existe pas
         if (!$client) {
             throw $this->createNotFoundException('Pas de marque dans la bdd');
@@ -177,16 +176,17 @@ class ClientController extends AbstractController
         $form->handleRequest($req);
         if ($form->isSubmitted() && $form->isValid()) {
             $client = $form->getData();
-            // if ($client->getModele() != null) {
-            //     $modeleToCheck = $client->getModele();
-            //     $clientAttached = $repoClient->findOneBy([
-            //         'modele' => $modeleToCheck,
-            //     ]);
-            //     if ($clientAttached){
-            //         dump("SetModele à null");
-            //         $clientAttached->setModele(null);
-            //     }
-            // }
+
+            $modeleToCheck = $client->getModele();
+            $c=$repoClient->findOneBy(['modele' => $modeleToCheck,]);
+            $client->setModele(null); 
+            //Si le client est déja lié on enlève le lien
+            if($c != null ){
+                //On enlève les relations des deux cotés
+                $c->setModele(null);
+                $em->flush(); 
+            }
+            $client->setModele($modeleToCheck);
             $em->flush();
             return $this->redirectToRoute('client/showAll');
         }
