@@ -38,6 +38,7 @@ afin d'avoir acces à votre configuration en dev sur votre machine local :
 ```bash
 symfony check:requirements
 composer install
+docker-compose up -d (uniquement si utilisation de docker)
 symfony console doctrine:database:create
 symfony console doctrine:migration:migrate
 ```
