@@ -56,3 +56,7 @@ La route du dashboard : /admin
 
 - Login : admin
 - Password : admin
+
+#### Création de l'administrateur
+
+(Work in progress)
