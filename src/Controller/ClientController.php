@@ -74,23 +74,17 @@ class ClientController extends AbstractController
     /**
      * @Route("/jsonFile", name="jsonFile")
      */
-    // public function getJson(ManagerRegistry $doctrine): Response
-    // {
-    //     $error = $this->Username->getLastAuthenticationError();
-    //     $lastUsername = $this->Username->getLastUsername();
+    public function getJson(ManagerRegistry $doctrine): Response
+    {
+        $error = $this->Username->getLastAuthenticationError();
+        $lastUsername = $this->Username->getLastUsername();
 
-    //     $em = $doctrine->getManager();
-    //     $repoClient = $em->getRepository(Client::class);
-    //     $listeAll = $repoClient->findAll();
-    //     dump($listeAll);
-    //     // $json = json_encode($listeAll);
-    //     $allClients = array();
-    //     foreach ($listeAll as $oneClient){
-    //         array_push($allClients, $oneClient);
-    //     }; 
-    //     dump($allClients);
-    //     return $this->json($allClients);
-    // }
+        $em = $doctrine->getManager();
+        $repoClient = $em->getRepository(Client::class);
+        $listeAll = $repoClient->findAll();
+        dump($listeAll);
+        return $this->json($listeAll);
+    }
 
 
     /**
