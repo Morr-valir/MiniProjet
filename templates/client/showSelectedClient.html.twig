@@ -16,12 +16,6 @@
 						<li class="nav-item">
 							<a class="btn text-light" aria-current="page" href="/">Retour à l'accueil</a>
 						</li>
-						{% if is_granted('ROLE_ADMIN') %}
-							<li>
-								<a class="btn text-light" aria-current="page" href="{{path('client/add')}}">Ajout d'un client</a>
-							</li>
-						{% endif %}
-
 					</ul>
 				</div>
 				{% if is_granted('ROLE_ADMIN') %}
@@ -38,9 +32,10 @@
 	</header>
 
 	<main class="container">
-		<div class="row">
+		<div class="row mt-5">
 			<div class="col_12">
-				<h1 class="h2 mb-5 mt-5">Informations clients</h1>
+				<a class="" href="/client/showAll">retour au tableau</a>
+				<h1 class="h2 mb-5">Informations clients</h1>
 			</div>
 			<div class="col-12 mb-4">
 				<figure>
@@ -65,10 +60,15 @@
 					{% endif %}
 				</p>
 			</b>
-			<div class="col-12">
-				<h2 class="h3">Option</h2>
-				<hr>
-			</div>
-		</p>
+			{% if clientSelected.modele == null %}
+				<div class="col-12">
+					<h2 class="h3">Option</h2>
+					<hr>
+					<div>
+						<a href="{{ path('client/update',{'id':clientSelected.id}) }}" class="btn btn-danger">Modifier le client</a>
+					</div>
+				</div>
+			{% endif %}
+		</div>
 	</div>
-</div></main>{% endblock %}
+</main>{% endblock %}
