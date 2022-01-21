@@ -60,4 +60,11 @@ La route du dashboard : /admin
 
 #### Création de l'administrateur
 
-(Work in progress)
+- Etape 1: Tapez "symfony console security:encode-password" dans le cmd
+- Etape 2: Ensuite copiez le password hashé
+- Etape 3: Aller dans la bdd, dans la table admin et dans insérer
+  - Le username ce que vous voulez
+  - Et dans roles il faut mettre: ["ROLE_ADMIN"]
+  - dans le password faut copier le password hashé que vous avez eu dans l'étape 1
+- Etape 4: Se connecter
+  (Work in progress)
