@@ -49,7 +49,19 @@ class ClientController extends AbstractController
             'title' => 'Platefome de vente automobile - Liste des clients'
         ]);
     }
+    
 
+    
+    /**
+     * @Route("/jsonFile", name="jsonFile")
+     */
+    public function getJson(ManagerRegistry $doctrine): Response
+    {
+        $em = $doctrine->getManager();
+        $repo = $em->getRepository(Client::class);
+        $listeAll = $repo->findAll();
+        return $this->json($listeAll);
+    }
 
     /**
      * @Route("/showSelected/{id}", name="showSelected")
