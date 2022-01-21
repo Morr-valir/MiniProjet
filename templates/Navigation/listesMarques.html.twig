@@ -12,13 +12,13 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0" >
 						{% if is_granted('ROLE_ADMIN') %}
-							<li class="nav-item">
+							<li class="link-1">
 								<a class="nav-link active text-light fw-normal" aria-current="page" href="{{path('marque/add')}}">Ajouter une marque</a>
 							</li>
 						{% endif %}
-						<li class="nav-item">
+						<li class="link-1">
 							<a class="nav-link active text-light fw-normal" aria-current="page" href="/">Retour à l'accueil</a>
 						</li>
 					</ul>
@@ -26,9 +26,9 @@
 				{% if is_granted('ROLE_ADMIN') %}
 					<span class="text-light">Nom utilisateur :
 						{{user}}
-						<a class="nav-link active text-light fw-normal" aria-current="page" href="/logout">Se déconnecter</a>
+						<a class="nav-link active text-light fw-normal" id="link-1" aria-current="page" href="/logout">Se déconnecter</a>
 					{% else %}
-						<a class="nav-link active text-light fw-normal" aria-current="page" href="/login">Se connecter</a>
+						<a class="nav-link active text-light fw-normal" id="link-1" aria-current="page" href="/login">Se connecter</a>
 					</span>
 				{% endif %}
 			</span>
