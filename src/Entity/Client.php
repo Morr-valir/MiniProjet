@@ -13,7 +13,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['client']]
-)]
+),]
 
 class Client
 {
