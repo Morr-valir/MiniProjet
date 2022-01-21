@@ -77,7 +77,11 @@
 					{% endfor %}
 				</tbody>
 			</table>
-
+		<div>
+		<p id="nomClientPopup"></p>
+		<p id="prenomClientPopup"></p>
+		<p id="modeleClientPopup"></p>
+		</div>
 
 		</main>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.js" integrity="sha512-n/4gHW3atM3QqRcbCn6ewmpxcLAHGaDjpEBu4xZd47N0W2oQ+6q7oc3PXstrJYXcbNU1OHdQ1T7pAP+gi5Yu8g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -91,15 +95,17 @@
 		<script>// Récupérer l'id du client selectionné
 function getClientId(clientIdGiven) {
 var clientId = clientIdGiven;
+var allClient;
+var clientFound;
 
 //Création de l'objet XMLHttpRequest
 var req = new XMLHttpRequest();
 
 // On initialise notre requête avec open()
-req.open("GET", "http://localhost:8000/client/jsonFile",true);
+req.open("GET", "http://localhost:8000/client/jsonFile");
 
 // Format de la réponse
-req.responseType = "text";
+req.responseType = "json";
 
 // Envoie de la requête
 req.send();
@@ -110,9 +116,35 @@ req.onreadystatechange = function(){
 		console.log(req.status);
 	}
 	if (req.status === 0 || (req.status >= 200 && req.status < 400)) {
-      // The request has been completed successfully
-      console.log(req.responseText);
+      // La requête a bien été exécuté
+	  allClient = req.response;
+	//   console.log(allClient);
+	}
+
+	// Si l'on a bien récupéré des données
+	if(allClient != null){
+		for (var i=0 ; i < allClient.length ; i++)
+{
+    if (allClient[i]["id"] == clientId) {
+		// On récupère le client
+		clientFound = allClient[i];
+		console.log(clientFound)
+
+		// Maintenant il faut intégré ces infos au html
+		//	Je récupère donc via le DOM mes balises dont le contenu vas être modifier et contenir les infos clients
+		var nomClient = document.getElementById('nomClientPopup');
+		var prenomClient = document.getElementById('prenomClientPopup');
+		var modeleClient = document.getElementById('modeleClientPopup');
+
+		// J'assigne les valeurs à ces balises
+		nomClient.innerHTML = clientFound["nom"];
+		prenomClient.innerHTML = clientFound["prenom"];
+		modeleClient.innerHTML = clientFound["modele"];
 }
+    }
+}
+	}
 }
 	</script>
+
 {% endblock %}

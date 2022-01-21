@@ -6,37 +6,42 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ClientRepository;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-#[ApiResource]
+#[ApiResource(
+    normalizationContext: ['groups' => ['client']]
+)]
+
 class Client
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read:client")
      */
+
+    #[Groups("client")]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read:client")
      */
+    #[Groups("client")]
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read:client")
      */
+    #[Groups("client")]
     private $prenom;
 
     /**
      * @ORM\OneToOne(targetEntity=Modele::class, cascade={"persist", "remove"})
-     * @Groups("read:client")
      */
+    #[Groups("client")]
     private $modele;
 
     public function getId(): ?int

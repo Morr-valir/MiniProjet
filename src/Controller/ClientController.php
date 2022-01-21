@@ -60,6 +60,7 @@ class ClientController extends AbstractController
         $em = $doctrine->getManager();
         $repo = $em->getRepository(Client::class);
         $listeAll = $repo->findAll();
+        
         return $this->json($listeAll);
     }
 

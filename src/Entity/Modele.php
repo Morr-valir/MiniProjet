@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass=ModeleRepository::class)
  */
+
 #[ApiResource]
 class Modele
 {
@@ -17,20 +18,20 @@ class Modele
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("read:client")
      */
+    #[Groups("client")]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("read:client")
      */
+    #[Groups("client")]
     private $nom;
 
     /**
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="modeles")
-     * @Groups("read:client")
      */
+    #[Groups("marque")]
     private $marque;
 
     public function getId(): ?int
