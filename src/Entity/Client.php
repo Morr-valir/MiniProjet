@@ -8,37 +8,34 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- *  @ApiResource(
- *     normalizationContext={"groups"={"client:read"}},
- * )
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-
+#[ApiResource]
 class Client
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups("client:read")
+     * @Groups("read:client")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("client:read")
+     * @Groups("read:client")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups("client:read")
+     * @Groups("read:client")
      */
     private $prenom;
 
     /**
      * @ORM\OneToOne(targetEntity=Modele::class, cascade={"persist", "remove"})
-     * @Groups("client:read")
+     * @Groups("read:client")
      */
     private $modele;
 

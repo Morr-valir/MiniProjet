@@ -2,28 +2,34 @@
 
 namespace App\Entity;
 
-use App\Repository\ModeleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ModeleRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=ModeleRepository::class)
  */
+#[ApiResource]
 class Modele
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read:client")
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups("read:client")
      */
     private $nom;
 
     /**
      * @ORM\ManyToOne(targetEntity=Marque::class, inversedBy="modeles")
+     * @Groups("read:client")
      */
     private $marque;
 

@@ -54,8 +54,7 @@
 				</thead>
 				<tbody>
 					{% for client in listeAll %}
-						{# <tr onclick="getClientId({{client.id}})"> #}
-						<tr>
+						<tr onclick="getClientId({{client.id}})">
 							<td>
 								{{client.nom}}
 							</td>
@@ -76,7 +75,6 @@
 
 						</tr>
 					{% endfor %}
-					{# {{jsonFile}} #}
 				</tbody>
 			</table>
 
@@ -97,16 +95,24 @@ var clientId = clientIdGiven;
 //Création de l'objet XMLHttpRequest
 var req = new XMLHttpRequest();
 
-On initialise notre requête avec open()
-req.open("GET", "http://localhost:8000/api/concessionnaire_a_p_is?page=1");
+// On initialise notre requête avec open()
+req.open("GET", "http://localhost:8000/client/jsonFile",true);
 
 // Format de la réponse
-req.responseType = "json";
+req.responseType = "text";
 
 // Envoie de la requête
 req.send();
 
-console.log(req.response);
+// Quand la requête a été executé
+req.onreadystatechange = function(){
+	if(req.readyState === XMLHttpRequest.DONE){
+		console.log(req.status);
+	}
+	if (req.status === 0 || (req.status >= 200 && req.status < 400)) {
+      // The request has been completed successfully
+      console.log(req.responseText);
+}
 }
 	</script>
 {% endblock %}
