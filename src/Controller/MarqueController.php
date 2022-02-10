@@ -39,7 +39,6 @@ class MarqueController extends AbstractController
         $em = $this->doctrine->getManager();
         $repo = $em->getRepository(Marque::class);
         $listemarque = $repo->findAll();
-        dump($listemarque);
         return $this->render('Navigation/listesMarques.html.twig', [
             'listeMarque' => $listemarque,
             'user' => $lastUsername,
@@ -128,7 +127,6 @@ class MarqueController extends AbstractController
                 $concessionnaire->addMarque($marque);
                 $em->flush();
             }
-            dump($marque);
             $em->flush();
             return $this->redirectToRoute('marque/showAll');
         }
