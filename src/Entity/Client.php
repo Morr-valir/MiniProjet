@@ -11,9 +11,7 @@ use Symfony\Component\Serializer\Annotation\MaxDepth;
 /**
  * @ORM\Entity(repositoryClass=ClientRepository::class)
  */
-#[ApiResource(
-    normalizationContext: ['groups' => ['client']]
-),]
+#[ApiResource( normalizationContext: ['groups' => ['client']])]
 
  class Client{
 
